@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mybatis.PatientMapper">
+
+
+
+<select id="study" resultType="AnswerVO">
+		select * from answer
+	</select>
+
+
+<select id="patientsLogin" parameterType="Integer" resultType="PatientsVO">
+    	select * from patients where pat_id = #{pat_id}
+    </select>
+    
+    <select id="getAnswer" parameterType="Integer" resultType="AnswerVO">
+    	select * from answer where ans_round=#{ans_round}
+    </select>
+	
+	<!-- 환자 검색용 -->
+	<select id="selectPt" resultType="PatientsVO">
+	
+	SELECT p.*,
+    (SELECT pp_date FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS pp_date,
+    (SELECT totalpoint FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS totalpoint
+	FROM patients AS p
+	WHERE pat_id=#{pat_id} and pat_name=#{pat_name} and pat_gender=#{pat_gender}
+	
+	
+	</select>
+	
+	
+	<insert id="patRegister" parameterType="PatientsVO">
+	
+	
+		insert into patients(pat_name,pat_age,pat_gender,pat_phone,pat_address,doc_id, pat_round, pat_num)
+		values(#{pat_name}, #{pat_age}, #{pat_gender}, #{pat_phone}, #{pat_address}, #{doc_id}, 1, 0);
+	
+	</insert>
+	
+	
+	<select id="revise_info" resultType="PatientsVO">
+	
+	select * from patients
+	where pat_id=#{pat_id}
+	
+	
+	</select>
+	
+	<update id="revise_pat" parameterType="PatientsVO">
+	
+	
+	update patients set pat_name=#{pat_name}, pat_age=#{pat_age}, pat_gender=#{pat_gender} ,pat_phone=#{pat_phone}, pat_address=#{pat_address} 
+	where pat_id=#{pat_id}
+	</update>	
+	
+	<insert id="scoreDB" parameterType="PatientpointVO">
+	
+	insert into patientpoint(pp_date,totalpoint,zinam,giuk,gesan, zipjoon, moonje, pat_id)
+values(NOW(),#{totalpoint}, #{zinam}, #{giuk}, #{gesan}, #{zipjoon}, #{moonje}, #{pat_id})
+	
+	
+	
+	</insert>
+	
+	<select id="allGraph" resultType="PatientpointVO">
+	
+	select * from patientpoint
+	where pat_id= #{pat_id} 
+	order by pp_date DESC limit 0,7
+	
+	</select>
+	
+	<select id="name_result" resultType="PatientsVO">
+	
+	select pat_name from patients
+	where pat_id =#{pat_id}
+	
+	</select>
+	
+	
+</mapper>
