@@ -14,7 +14,8 @@ function faceRecognition(){
    var num = document.getElementById("specificSizeInputName").value;
    alert(num)
    console.log("첫 함수 실행")
-   recogRequest(num)
+//   recogRequest(num)
+    login(num)
 }
 
 function sendRequest(num){
@@ -42,9 +43,9 @@ function recogRequest(num){
       data: {
          data:num
       },
-        method :"POST", 
+        method :"POST",
         success: function(result) {
-          
+
           if(result=="Unlocked"){
         	  alert("얼굴인식 완료")
         	  login(num)
@@ -52,10 +53,10 @@ function recogRequest(num){
         	  alert("얼굴인식 실패")
         	  window.location.href = "http://localhost:8089/myapp/loginHome.do";
           }
-          
+
         },
        error:function(request,status,error){
-    	   	alert("실패 ")
+    	   	alert("실패!!")
 /*          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);*/
       }
    });
@@ -64,16 +65,16 @@ function recogRequest(num){
 function login(num){
 	   $.ajax({
 	     /*   url: "http://localhost:8089/myapp/face_recognition.do"*/
-		   url: "http://localhost:8089/myapp/patLogin.do",
+		   url: "http://localhost:8080/home/patient",
 	      data: {
 	         data:num
 	      },
 	        method :"POST", 
 	        success: function() {
 	          alert("환영합니다.")
-	         //location.href = "http://localhost:8089/titanic/train_result.jsp?result="+result
-	          location.href = "restudymain.do";
-	        },
+//	         //location.href = "http://localhost:8089/titanic/train_result.jsp?result="+result
+//	          location.href = "restudymain.do";
+//	        },
 	       error:function(request,status,error){
 	          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
 	      }

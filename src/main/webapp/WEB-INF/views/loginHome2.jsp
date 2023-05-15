@@ -214,7 +214,7 @@
     </nav>
   </header>
 <body>
-    <script type="text/javascript" src="resources/js/face.js"></script>
+    <script type="text/javascript" src="resources/js/login.js"></script>
     
     <div class="main" data-aos="fade-up" data-aos-duration="500">
         <div class="radio">
@@ -251,7 +251,7 @@
                             <td>
                                 <div class="col-auto">
                                 	 
-                                	 <button onclick="faceRecognition()" type="button" class="btn btn-primary" style="width:75%; margin-left: 5%;">로그인</button>
+                                	 <button onclick="faceRecognition()" type="button" class="btn btn-primary continue" style="width:75%; margin-left: 5%;">로그인</button>
 
                                     
                                     </div> 
@@ -261,7 +261,7 @@
                     </table>
                   </form>
         </div>
-        </div>
+    </div>
 
         <div style="display: none;" class="login_page2 fade-in-box" >
             <div class = "login">

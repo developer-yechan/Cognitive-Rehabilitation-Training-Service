@@ -93,6 +93,18 @@
 //		return page;
 //
 //	}
+// 안쓰이는 함수 같다.
+	/*HttpServletRequest request;
+
+	@RequestMapping("/patient_info.do")
+public String patient_info(Model model) {
+		MemberVO info = (MemberVO)request.getAttribute("info");
+
+		List<MemberVO> patlist = dao.patlist(info);
+		model.addAttribute("patlist", patlist);
+
+		return "home";
+	}*/
 //
 //	@RequestMapping(value="/patientDelete.do", produces="text/plain;charset=UTF-8")
 //	@ResponseBody
@@ -132,19 +144,6 @@
 //
 //		return "Detailed_result";
 //	}
-//
-//
-//	/*HttpServletRequest request;
-//
-//	@RequestMapping("/patient_info.do")
-//public String patient_info(Model model) {
-//		MemberVO info = (MemberVO)request.getAttribute("info");
-//
-//		List<MemberVO> patlist = dao.patlist(info);
-//		model.addAttribute("patlist", patlist);
-//
-//		return "home";
-//	}*/
 //
 //	@RequestMapping("/detail_result.do")
 //	public String  detail_result(int pat_id, Model model) {

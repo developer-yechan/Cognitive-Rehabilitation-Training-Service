@@ -1,18 +1,12 @@
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="kr.smhrd.model.MemberVO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src = "resources/js/jquery-3.6.0.min.js"></script>
-    <script src ="scripts.js"></script>
+    <script type="text/javascript" src = "../../resources/js/jquery-3.6.0.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -115,7 +109,7 @@
     height: 220px;
     background-color: teal;
     background-size: cover;
-    background-image: url('resources/images/background_img.png');
+    background-image: url('../../resources/images/background_img.png');
 }
 
 #mainlogo{
@@ -131,11 +125,11 @@
 }
 </style>
 
-<% List<PatientsVO> patlog=(List<PatientsVO>)application.getAttribute("patlog"); %>
+
 </head>
 <body>
     <div class = "header1"> 
-    <img id="mainlogo" alt="" src="resources/images/mainlogo.png">
+    <img id="mainlogo" alt="" src="../../resources/images/mainlogo.png">
     </div>
     
         <div class="p_main container">
@@ -143,7 +137,7 @@
               <div class="col col-lg-2">
               </div>
               <div class="col-md-auto">
-                <h3 class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left">${list.get(0).pat_name}님 환영합니다.</h3>
+                <h3 class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left">${pat_name}님 환영합니다.</h3>
               </div>
               <div class="col col-lg-2 pull-right">
                 <a href="loginHome.do"><input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="button" value="로그아웃"></a>
@@ -160,12 +154,11 @@
 
     
 
-    <script src = "resources/js/jquery-3.6.0.min.js"></script>
-    <script src = "scripts.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
     <script>
         AOS.init();

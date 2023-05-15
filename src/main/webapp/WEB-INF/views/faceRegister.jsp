@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +10,11 @@
 </head>
 <body>
 <div>
-х╦©Ь╟║ют
+х╦О©╫О©╫О©╫О©╫О©╫О©╫
 </div>
 <div>
    <input type="text" id="num"/>
-   <button onclick="faceTrain()">╬С╠╪ ╣Н╥ого╠Б</button>
+   <button onclick="faceTrain()">О©╫О©╫ О©╫О©╫О©╫О©╫о╠О©╫</button>
 </div>
 </body>
 </html>

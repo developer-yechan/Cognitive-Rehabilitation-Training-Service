@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mybatis.MemberMapper">
+
+<!-- 치료사용 sql -->
+	<insert id="docRegister" parameterType="MemberVO">
+
+		insert into Doctor(doc_id,doc_pass,doc_name,doc_phone,doc_organization,doc_email)
+		values(#{doc_id},#{doc_pass},#{doc_name},#{doc_phone},#{doc_organization},#{doc_email})
+		
+
+	</insert>
+<!-- ON DUPLICATE KEY UPDATE 'doc_id'=VALUES('#{doc_id}'); -->
+
+
+	<select id="docLogin" resultType="MemberVO" >
+	SELECT p.*,
+    (SELECT pp_date FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS pp_date,
+    (SELECT totalpoint FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS totalpoint
+	FROM patients AS p
+	where doc_id=#{doc_id} AND (select doc_pass FROM Doctor where doc_pass = #{doc_pass} LIMIT 1)=#{doc_pass}
+
+	</select>
+	
+	
+	
+	<delete id="patientDelete" parameterType="Integer">
+	
+	
+	delete from patients where pat_id=#{pat_id}
+	
+	
+	</delete>
+	
+	<select id="reloadHome" resultType="MemberVO" >
+	SELECT p.*,
+    (SELECT pp_date FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS pp_date,
+    (SELECT totalpoint FROM patientpoint WHERE pat_id=p.pat_id ORDER BY pp_date DESC LIMIT 1) AS totalpoint
+	FROM patients AS p
+	where doc_id=#{doc_id}
+
+	</select>
+	
+<!-- 환자용 sql -->
+
+	
+
+	
+	
+	
+
+<!-- // 참고용 sql -->
+
+	<select id="memberList" resultType="MemberVO">
+
+		select * from member
+
+	</select>
+
+	<insert id="memberIsert" parameterType="MemberVO">
+
+		insert into member(id,pass,name,age,phone,email)
+		values(#{id},#{pass},#{name},#{age},#{phone},#{email})
+
+	</insert>
+
+	<delete id="memberDelete" parameterType="Integer">
+
+		delete from member where num= #{num}
+
+	</delete>
+
+	<select id="memberContent" resultType="MemberVO"
+		parameterType="Integer">
+
+		select * from member where num=#{num}
+
+	</select>
+
+	<update id="memberUpdate" parameterType="MemberVO">
+		update member set age=#{age}, phone=#{phone}, email=#{email} where
+		num=#{num}
+	</update>
+
+	
+	
+</mapper>

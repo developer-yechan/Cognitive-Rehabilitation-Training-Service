@@ -104,6 +104,103 @@
 //		return "study";
 //	}
 //
+//@RequestMapping("/next.do")
+//public String next(@RequestParam("result") String result,Model model) {
+//
+//		//1번 문제 번호 가지고 있는 리스트 가져와서
+//		//리스트의 값을 수정
+//		//1번 문제에 답을 저장해주는 것
+//		System.out.println("넘겨받기 시작하자 ㅋㅋㅋㅋ");
+//
+//		List<AnswerVO> aList = (List<AnswerVO>)application.getAttribute("aList");
+//		List<AnswerVO>studyinfo=(List<AnswerVO>)application.getAttribute("studyINFO");
+//		System.out.println("aList"+aList);
+//
+//		//변수 선언 부분
+//		int ans_num = 0;
+//		int ans_round = 0;
+//		int cate_num=0;
+//		String ans_category="";
+//		String studyContent="";
+//		String studyCategory="";
+//		String studyImage="";
+//		String studySound="";
+//		AnswerVO vo = new AnswerVO();;
+//
+//		System.out.println("배열 크기는?"+aList.size());
+//
+//		//문제 한 문제도 안 풀었을 때
+//		if(aList.size() == 0) {
+//		cate_num=0;
+//		//문제 번호랑 회차 환자 로그인 정보 저장하는 리스트에서 가져오기
+//		List<PatientsVO> pList = (List<PatientsVO>)application.getAttribute("patlog");
+//		ans_num = pList.get(0).getPat_num();
+//		ans_round= pList.get(0).getPat_round();
+//
+//		//vo에 값 세팅
+//		vo.setAns_num(ans_num);
+//		vo.setAns_round(ans_round);
+//		vo.setAns_correct(result);
+//		studyContent=studyinfo.get(ans_num).getAns_content();
+//		studyCategory=studyinfo.get(ans_num).getAns_category();
+//		studyImage=studyinfo.get(ans_num).getAns_image();
+//		studySound=studyinfo.get(ans_num).getAns_sound();
+//		// 해당 문제가 어떤 유형의 문제인지 세팅
+//		ans_category= studyinfo.get(cate_num).getAns_category();
+//		System.out.println();
+//		vo.setAns_category(ans_category);
+//		}else {
+//		//문제 번호랑 정답 가지고 오기
+//		// 현재 저장된 번호 가져오기
+//		ans_num = aList.get(aList.size()-1).getAns_num();
+//
+//		// 현재 문제유형 넣기
+//
+//		ans_category= studyinfo.get(ans_num).getAns_category();
+//		System.out.println();
+//		System.out.println("아이디값 변경"+ans_num);
+//		ans_round = 1;
+//		//vo에 값 넣기
+//		vo.setAns_num(ans_num+1);
+//		vo.setAns_round(ans_round);
+//		vo.setAns_correct(result);
+//		vo.setAns_category(ans_category);
+//		System.out.println("vo값 잘 나오는지 확인 문제 번호 :"+vo.getAns_num()+"회차 :"+vo.getAns_round()+"정답 : "+vo.getAns_correct()+"현재 유형: "+vo.getAns_category());
+//		/*vo.getAns_num();*/
+//		if(ans_num<9) {
+//		studyContent=studyinfo.get(ans_num+1).getAns_content();
+//		studyCategory=studyinfo.get(ans_num+1).getAns_category();
+//		studyImage=studyinfo.get(ans_num+1).getAns_image();
+//		studySound=studyinfo.get(ans_num+1).getAns_sound();
+//		}
+//		}
+//
+//		//aList에 세팅한 vo값 넣어주기
+//		aList.add(vo);
+//		System.out.println("리스트 확인 완료");
+//		for (int i = 0; i < aList.size(); i++) {
+//		System.out.println(aList.get(i).getAns_num()+"번 문제 정답 : "+aList.get(i).getAns_correct()+"문제 유형: "+aList.get(i).getAns_category());
+//		}
+//		System.out.println(aList.size());
+//		application.setAttribute("aList", aList);
+//		// 사용자가 푼 문제 application 객체에  저장
+//		application.setAttribute("testList", aList);
+//		model.addAttribute("studyContent", studyContent);
+//		model.addAttribute("studyCategory",studyCategory );
+//		model.addAttribute("studyImage", studyImage);
+//		model.addAttribute("studySound",studySound );
+//
+//		String page="study";
+//		if(aList.get(aList.size()-1).getAns_num()>=10) {
+//		page="redirect:/graph.do";
+//		/*	model.addAttributes();*/
+//		}
+//		else {
+//		model.addAttribute("pat_num",aList.get(aList.size()-1).getAns_num()+1 );
+//		}
+//
+//		return page;
+//		}
 //
 //	@RequestMapping("/graph.do")
 //	public String graphpoint(Model model) {
@@ -186,101 +283,7 @@
 //
 //
 //
-//	@RequestMapping("/next.do")
-//	public String next(@RequestParam("result") String result,Model model) {
-//
-//		//1번 문제 번호 가지고 있는 리스트 가져와서
-//		//리스트의 값을 수정
-//		//1번 문제에 답을 저장해주는 것
-//		System.out.println("넘겨받기 시작하자 ㅋㅋㅋㅋ");
-//
-//		List<AnswerVO> aList = (List<AnswerVO>)application.getAttribute("aList");
-//		List<AnswerVO>studyinfo=(List<AnswerVO>)application.getAttribute("studyINFO");
-//		System.out.println("aList"+aList);
-//
-//		//변수 선언 부분
-//		int ans_num = 0;
-//		int ans_round = 0;
-//		int cate_num=0;
-//		String ans_category="";
-//		String studyContent="";
-//		String studyCategory="";
-//		String studyImage="";
-//		String studySound="";
-//		AnswerVO vo = new AnswerVO();;
-//
-//		System.out.println("배열 크기는?"+aList.size());
-//		if(aList.size() == 0) {
-//			cate_num=0;
-//			//문제 번호랑 회차 환자 로그인 정보 저장하는 리스트에서 가져오기
-//			List<PatientsVO> pList = (List<PatientsVO>)application.getAttribute("patlog");
-//			ans_num = pList.get(0).getPat_num();
-//			ans_round= pList.get(0).getPat_round();
-//
-//			//vo에 값 세팅
-//			vo.setAns_num(ans_num);
-//			vo.setAns_round(ans_round);
-//			vo.setAns_correct(result);
-//			studyContent=studyinfo.get(ans_num).getAns_content();
-//			studyCategory=studyinfo.get(ans_num).getAns_category();
-//			studyImage=studyinfo.get(ans_num).getAns_image();
-//			studySound=studyinfo.get(ans_num).getAns_sound();
-//			// 해당 문제가 어떤 유형의 문제인지 세팅
-//			ans_category= studyinfo.get(cate_num).getAns_category();
-//			System.out.println();
-//			vo.setAns_category(ans_category);
-//		}else {
-//			//문제 번호랑 정답 가지고 오기
-//				// 현재 저장된 번호 가져오기
-//			ans_num = aList.get(aList.size()-1).getAns_num();
-//
-//			// 현재 문제유형 넣기
-//
-//			ans_category= studyinfo.get(ans_num).getAns_category();
-//			System.out.println();
-//			System.out.println("아이디값 변경"+ans_num);
-//			ans_round = 1;
-//			//vo에 값 넣기
-//			vo.setAns_num(ans_num+1);
-//			vo.setAns_round(ans_round);
-//			vo.setAns_correct(result);
-//			vo.setAns_category(ans_category);
-//			System.out.println("vo값 잘 나오는지 확인 문제 번호 :"+vo.getAns_num()+"회차 :"+vo.getAns_round()+"정답 : "+vo.getAns_correct()+"현재 유형: "+vo.getAns_category());
-//			/*vo.getAns_num();*/
-//			if(ans_num<9) {
-//			studyContent=studyinfo.get(ans_num+1).getAns_content();
-//			studyCategory=studyinfo.get(ans_num+1).getAns_category();
-//			studyImage=studyinfo.get(ans_num+1).getAns_image();
-//			studySound=studyinfo.get(ans_num+1).getAns_sound();
-//			}
-//		}
-//
-//		//aList에 세팅한 vo값 넣어주기
-//		aList.add(vo);
-//		System.out.println("리스트 확인 완료");
-//		for (int i = 0; i < aList.size(); i++) {
-//			System.out.println(aList.get(i).getAns_num()+"번 문제 정답 : "+aList.get(i).getAns_correct()+"문제 유형: "+aList.get(i).getAns_category());
-//		}
-//		System.out.println(aList.size());
-//		application.setAttribute("aList", aList);
-//		// 사용자가 푼 문제 application 객체에  저장
-//		application.setAttribute("testList", aList);
-//		model.addAttribute("studyContent", studyContent);
-//	    model.addAttribute("studyCategory",studyCategory );
-//	    model.addAttribute("studyImage", studyImage);
-//	    model.addAttribute("studySound",studySound );
-//
-//		String page="study";
-//		if(aList.get(aList.size()-1).getAns_num()>=10) {
-//			page="redirect:/graph.do";
-//		/*	model.addAttributes();*/
-//		}
-//		else {
-//			model.addAttribute("pat_num",aList.get(aList.size()-1).getAns_num()+1 );
-//		}
-//
-//		return page;
-//	}
+
 //	@RequestMapping("/scoreDB.do")
 //	public String scoreDb(Model model) {
 //		List<PatientsVO>list=(List<PatientsVO>)application.getAttribute("patlog");
