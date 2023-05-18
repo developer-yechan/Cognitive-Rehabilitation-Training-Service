@@ -140,26 +140,26 @@ alter table answer modify ans_id char(40) not null;
 alter table patients add pat_round int(4) not null;
 
 // 정답 테이블에 데이터 넣기
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound,ans_category)
-value('병원',"6",1,1,'다음 단어와 연관이 있는 장소를 적어 주세요.','q1.png','q1.mp3','문제해결');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value('학교',"11",2,1,'다음 단어와 연관이 있는 장소를 적어 주세요.','q2.png','q2.mp3','문제해결');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound,ans_category)
-value("월","7",3,1,'다음 빈 칸에 알맞는 요일을 적어 주세요.','q3.png','q3.mp3','지남력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value("화","17",4,1,'다음 빈 칸에 알맞는 요일을 적어 주세요.','q4.png','q4.mp3','지남력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value('4',"4",5,1,'다음 물음표에 들어갈 숫자를 적어 주세요.','q5.png','q5.mp3','계산력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value('8',"2",6,1,'다음 물음표에 들어갈 숫자를 적어 주세요.','q6.png','q5.mp3','계산력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value('5',"3",7,1,'나무 위에 사과가 몇 개인가요?','q7.png','q7.mp3','집중력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound, ans_category)
-value('2',"18",8,1,'다음 숫자중 가장 작은 숫자를 찾아 적어 주세요.','q8.png','q8.mp3','집중력');
-insert into answer(ans_correct, ans_label, ans_num,ans_round,ans_content,ans_image,ans_sound,ans_category)
-value('미국',"0",9,1,'아시아가 아닌 나라를 찾아 적어 주세요.','q9.png','q9.mp3','기억력');
-insert into answer(ans_correct, ans_label,ans_num,ans_round,ans_content,ans_image,ans_sound,ans_category)
-value('독도',"1",10,1,'우리나라 동쪽 끝 두개의 섬으로 이루어져 있는 이 섬의 이름은 무엇인가요?','q10.png','q10.mp3','기억력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(1,'병원','6',1,1,'다음 단어와 연관이 있는 장소를 적어 주세요.','q1.png','q1.mp3','문제해결');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(2,'학교','1',2,1,'다음 단어와 연관이 있는 장소를 적어 주세요.','q2.png','q2.mp3','문제해결');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(3,'월','7',3,1,'다음 빈 칸에 알맞는 요일을 적어 주세요.','q3.png','q3.mp3','지남력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(4,'화','1',4,1,'다음 빈 칸에 알맞는 요일을 적어 주세요.','q4.png','q4.mp3','지남력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(5,'4','4',5,1,'다음 물음표에 들어갈 숫자를 적어 주세요.','q5.png','q5.mp3','계산력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(6,'8','2',6,1,'다음 물음표에 들어갈 숫자를 적어 주세요.','q6.png','q5.mp3','계산력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(7,'5','3',7,1,'나무 위에 사과가 몇 개인가요?','q7.png','q7.mp3','집중력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(8,'2','1',8,1,'다음 숫자중 가장 작은 숫자를 찾아 적어 주세요.','q8.png','q8.mp3','집중력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(9,'미국','0',9,1,'아시아가 아닌 나라를 찾아 적어 주세요.','q9.png','q9.mp3','기억력');
+insert into problem(id,answer, answer_label, number,round,content,image_path,sound_path,category)
+values(10,'독도','1',10,1,'우리나라 동쪽 끝 두개의 섬으로 이루어져 있는 이 섬의 이름은 무엇인가요?','q10.png','q10.mp3','기억력');
 
 
 

@@ -4,7 +4,7 @@ function faceRecognition(){
 //   alert(num)
    alert("얼굴 인식 진행")
    recogRequest(num)
-//    login(1)
+//   login(num)
 //     location.href = `http://localhost:8080/home/patient?pat_id=${num}`;
 }
 
@@ -20,8 +20,7 @@ function recogRequest(num){
 
           if(result=="Unlocked"){
         	  alert("얼굴인식 완료")
-        	  location.href = `http://localhost:8080/home/patient?pat_id=${num}`;
-//        	  login(num)
+        	  location.href = `http://localhost:8080/patient/login?pat_id=${num}`;
           }else{
         	  alert("얼굴인식 실패")
         	  window.location.href = "http://localhost:8080/home";
@@ -35,24 +34,42 @@ function recogRequest(num){
    });
 }
 
-//function login(num){
-//    	   $.ajax({
-//    	     /*   url: "http://localhost:8089/myapp/face_recognition.do"*/
-//    		   url: `http://localhost:8080/home/patient?pat_id=${num}`,
-//    	      data: {
-//    	         data:num
-//    	      },
-//    	        method :"POST",
+/*
+ * path : 전송 URL
+ * params : 전송 데이터 {'q':'a','s':'b','c':'d'...}으로 묶어서 배열 입력
+ * method : 전송 방식(생략가능)
+ */
+//function post_to_url(path, params) {
+//    method = "post";
+//    var form = document.createElement("form");
+//    form.setAttribute("method", method);
+//    form.setAttribute("action", path);
+//    for(var key in params) {
+//        var hiddenField = document.createElement("input");
+//        hiddenField.setAttribute("type", "hidden");
+//        hiddenField.setAttribute("name", key);
+//        hiddenField.setAttribute("value", params[key]);
+//        form.appendChild(hiddenField);
+//    }
+//    document.body.appendChild(form);
+//    form.submit();
+//}
+
+function login(num){
+    	   $.ajax({
+    	      url: `http://localhost:8080/patient/login?pat_id=${num}`,
+    	      data: {
+    	         data:num
+    	      },
+    	        method :"POST",
 //    	        success: function() {
 //    	          alert("환영합니다.")
-//    //	         //location.href = "http://localhost:8089/titanic/train_result.jsp?result="+result
-//    	          location.href = "studymain";
 //    	        },
-//    	       error:function(request,status,error){
-//    	          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-//    	      }
-//    	   });
-//    	}
+    	       error:function(request,status,error){
+    	          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+    	      }
+    	   });
+    	}
 
     	function faceTrain(){
            var num = document.getElementById("num").value;

@@ -202,7 +202,7 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <img style="width:125px; height:62.5px" class="navbar-brand" href="#" src="resources/images/lastlogo.png"/>
+        <img style="width:125px; height:62.5px" class="navbar-brand" href="#" src="../../resources/images/lastlogo.png"/>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -214,7 +214,7 @@
     </nav>
   </header>
 <body>
-    <script type="text/javascript" src="resources/js/login.js"></script>
+    <script type="text/javascript" src="../../resources/js/login.js"></script>
     
     <div class="main" data-aos="fade-up" data-aos-duration="500">
         <div class="radio">
@@ -229,7 +229,7 @@
             
         </div>
         <div>
-            <img class="login_img" src="resources/images/login.png">
+            <img class="login_img" src="../../resources/images/login.png">
             <h2 class="login_text display-4">LOGIN</h2>
             <div>
             <p class="login_plz h5 display-4" data-aos="flip-up" data-aos-duration="2500">저희 페이지에 오신것을 환영합니다.</p>
@@ -265,19 +265,19 @@
 
         <div style="display: none;" class="login_page2 fade-in-box" >
             <div class = "login">
-                <form action="docLogin.do" method="post">
+                <form action="/doctor/login" method="post">
                     <table style="width:70%">
                         <tr>
                             <td colspan="2">
                                 <div class="col-sm-3">
-                                <input type="text" class="doc form-control" id="specificSizeInputName"placeholder="작업치료사 아이디"  name="doc_id">
+                                <input type="text" class="doc form-control" id="specificSizeInputName"placeholder="작업치료사 이메일"  name="email">
                             </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <div class="col-sm-3" >
-                                <input type="password" class="doc form-control" id="specificSizeInputName"placeholder="비밀번호" name="doc_pass" >
+                                <input type="password" class="doc form-control" id="specificSizeInputName"placeholder="비밀번호" name="password" >
                                 </div>
                             </td>
                         </tr>
@@ -286,7 +286,7 @@
                                 <button type="submit" class="doctor btn-primary">로그인</button> 
                             </td>
                             <td>
-                                <a href="docRegisterpage.do"><input class ="join" type="button" name ='join' value="회원가입"></a>
+                                <a href="/doctor/signup"><input class ="join" type="button" name ='join' value="회원가입"></a>
                             </td>
                         </tr>
                     </table>
@@ -300,7 +300,7 @@
         </div>
 
         </div>
-        <script src = "resources/js/jquery-3.6.0.min.js"></script>
+        <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
         
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>

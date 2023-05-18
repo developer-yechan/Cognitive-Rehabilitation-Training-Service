@@ -1,11 +1,10 @@
 package trainingservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,6 +12,11 @@ import java.time.LocalDateTime;
 public class Score {
     @Id @GeneratedValue
     private Long id;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
 
     private LocalDateTime date;
 
@@ -27,4 +31,13 @@ public class Score {
     private int concentration;
     private int problemSolving;
 
+    public Score() {
+    }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "date=" + date +
+                '}';
+    }
 }

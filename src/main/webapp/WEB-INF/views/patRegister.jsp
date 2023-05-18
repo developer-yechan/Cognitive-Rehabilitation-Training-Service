@@ -1,4 +1,3 @@
-<%@page import="kr.smhrd.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -98,12 +97,12 @@
     
 
     </style>
-<% MemberVO vo=(MemberVO)session.getAttribute("logvo"); %>
+
 </head>
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원 등록</p>
-        <form action="patRegister.do" method="post">
+        <form action="/patient/register?doctorId=${param.doctorId}" method="post">
             <table class="table1">
                 <tr>
                     
@@ -113,7 +112,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="pat_name" />
+                        <input class="underline0" type="text" name="name" />
                     </td>
                     
                 </tr>
@@ -125,7 +124,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="number" name="pat_age" />
+                        <input class="underline0" type="number" name="age" />
                     </td>
                  </tr>
                 <tr>
@@ -136,8 +135,8 @@
                 
                  <tr>
                     <td>
-                        <input id ="radio_sex" type="radio" name="sex"checked="checked" value=0/>남성
-                        <input id ="radio_sex"type="radio" name="sex"value=1/>여성
+                        <input id ="radio_sex" type="radio" name="sex"checked="checked" value="남"/>남성
+                        <input id ="radio_sex"type="radio" name="sex"value="여"/>여성
                     </td>
                 </tr>
                 <tr>
@@ -152,7 +151,7 @@
                 </tr>
                 <tr>
                     <td colspan="2"> 
-                        <input class="underline0" type="text" name="pat_phone" />
+                        <input class="underline0" type="text" name="phoneNumber" />
                     </td>
                 </tr>
                 <tr>
@@ -162,7 +161,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="pat_address" />
+                        <input class="underline0" type="text" name="address" />
                     </td>
                 </tr>
                 <tr>
@@ -172,12 +171,12 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="doc_id" value= <%=vo.getDoc_id() %> readonly="readonly" />
+                        <p class="underline0">${param.doctorId}<p/>
                     </td>
                 </tr>
             </table>
             <input class ="submit3" type="submit" value="등록">
-            <a href="reloadHome.do"><input class ="return" type="button" value="뒤로가기"></a>
+            <a href="/doctor/home"><input class ="return" type="button" value="뒤로가기"></a>
             
         </form>
     </div>

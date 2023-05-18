@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="java.util.ArrayList"%>
-<%@page import="java.lang.reflect.Array"%>
-<%@page import="kr.smhrd.model.PatientpointVO"%>
-<%@page import="kr.smhrd.myapp.Scoring"%>
-<%@page import="kr.smhrd.model.AnswerVO"%>
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="java.util.List"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,17 +150,6 @@ span{
   text-anchor: middle;
 }
     </style>
-<% List<PatientsVO> patlog=(List<PatientsVO>)application.getAttribute("patlog"); %>
-<% List<AnswerVO> studyINFO=(List<AnswerVO>)application.getAttribute("studyINFO"); %>
-<% List<AnswerVO> testList =(List<AnswerVO>)application.getAttribute("testList"); %>
-    
-    <% Scoring scoring = new Scoring();
-        List<PatientpointVO> score= scoring.calScoring(testList, studyINFO, patlog);
-         
-      
-        // DB에 저장할 LIST 객체 생성
-    application.setAttribute("ScoreDB", score);
-    %>
    
 </head>
 <body>
@@ -176,7 +159,7 @@ span{
         </header>
         <div id="check">
             <div class ="col-md-12">
-                <p id="member_name3">${patlog.get(0).getPat_name()}님 결과입니다.</p>
+                <p id="member_name3">${score.patient.name}님 결과입니다.</p>
             </div>
         </div>
             <div id="chart">
@@ -190,12 +173,12 @@ span{
                 />
                      <!-- 점수 "점수,최대"  stroke-dasharray-->
                           <path class="circle"
-                             stroke-dasharray="<%=score.get(0).getTotalpoint()*10 %>, 100" 
+                             stroke-dasharray="${score.totalPoint*10}, 100"
                              d="M18 2.0845
                                  a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
-                         <text x="18" y="20.35" class="percentage"><%=score.get(0).getTotalpoint()*10 %>점</text>
+                         <text x="18" y="20.35" class="percentage">${score.totalPoint*10}점</text>
                          </svg>
                      </div>
             </div>
@@ -216,23 +199,23 @@ span{
                         <tbody>
                           <tr>
                             <td class="tg-c3ow">정답 수</td>
-                            <td class="tg-c3ow"><%= score.get(0).getZinam() %></td>
-                            <td class="tg-c3ow"><%= score.get(0).getGiuk() %></td>
-                            <td class="tg-c3ow"><%= score.get(0).getGesan() %></td>
-                            <td class="tg-c3ow"><%= score.get(0).getZipjoon() %></td>
-                            <td class="tg-c3ow"><%= score.get(0).getMoonje() %></td>
-                            <td class="tg-c3ow"><%= score.get(0).getTotalpoint() %></td>
+                            <td class="tg-c3ow">${score.orientation}</td>
+                            <td class="tg-c3ow">${score.memory}</td>
+                            <td class="tg-c3ow">${score.calculation}</td>
+                            <td class="tg-c3ow">${score.concentration}</td>
+                            <td class="tg-c3ow">${score.problemSolving}</td>
+                            <td class="tg-c3ow">${score.totalPoint}</td>
                           </tr>
                         </tbody>
                         </table>
                 </div>
             </div>
             <footer id="back">
-                <a href="scoreDB.do"><input class ="return" type="button" value="뒤로가기"></a>
+                <a href="/patient/home"><input class ="return" type="button" value="뒤로가기"></a>
             </footer>
         </div>
 
-    <script src = "jquery-3.6.0.min.js"></script>
+    <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

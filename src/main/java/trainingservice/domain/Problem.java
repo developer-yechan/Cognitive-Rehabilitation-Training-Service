@@ -29,4 +29,18 @@ public class Problem {
 
     private String category;
 
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "id=" + id +
+                ", answer='" + answer + '\'' +
+                ", answerLabel='" + answerLabel + '\'' +
+                ", round=" + round +
+                ", number=" + number +
+                ", content='" + content + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", soundPath='" + soundPath + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

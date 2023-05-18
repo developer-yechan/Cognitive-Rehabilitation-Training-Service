@@ -3,6 +3,8 @@ package trainingservice.domain;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Generated;
@@ -19,17 +21,18 @@ public class Patient {
     @GeneratedValue
     private Long id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @OneToMany
-    @JoinColumn(name = "patient_id")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "patient")
     private List<Score> score = new ArrayList<>();
 
     private String name;
 
-    private Sex sex;
+    private String sex;
 
     private int age;
 
@@ -37,4 +40,17 @@ public class Patient {
 
     private String address;
 
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", doctor=" + doctor +
+                ", score=" + score +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

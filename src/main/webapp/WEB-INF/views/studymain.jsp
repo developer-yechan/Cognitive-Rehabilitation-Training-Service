@@ -140,11 +140,13 @@
                 <h3 class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left">${pat_name}님 환영합니다.</h3>
               </div>
               <div class="col col-lg-2 pull-right">
-                <a href="loginHome.do"><input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="button" value="로그아웃"></a>
+                <form action="/patient/logout" method="post">
+                  <input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="submit" value="로그아웃">
+                </form>
               </div>
             </div>
         </div>
-        <a href="study.do"><div data-aos="fade-up" data-aos-duration="1500" class="left">
+        <a href="/train"><div data-aos="fade-up" data-aos-duration="1500" class="left">
             <p id="question" data-aos="flip-up" data-aos-duration="2000">훈련 시작</p>
         </div></a>
  

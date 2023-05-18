@@ -103,18 +103,13 @@ function canvastoimage(){
 
 function sendImage(dataUrl){
    $.ajax({
-        url: "http://localhost:9000/draw/predict",
+        url: "http://localhost:9600/draw/predict",
         data: {
           img: dataUrl
         },
         method :"POST", 
         success: function( result ) {
-         //alert("success");
-         //alert('들어옴');
-         //location.href = "http://localhost:8090/myapp/draw_result.jsp?predict="+result
-         //window.location.href = "http://localhost:8089/myapp/next.do?result=";
-         window.location.href = "next.do?result="+result;
-         // location.href = "http://localhost:8089/myapp/next.do?result="+result
+         window.location.href = "http://localhost:8080/train/nextProblem?result="+result;
         },
        error:function(request,status,error){
           alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);

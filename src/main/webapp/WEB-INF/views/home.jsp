@@ -15,7 +15,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src = "resources/js/jquery-3.6.0.min.js"></script>
+    <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
       
 
@@ -33,6 +33,7 @@
 
 
     <style>
+
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -169,8 +170,12 @@
         }
         body{
         	background-size : cover;
-        	background-image : url('resource/image/back004.png');
+        	background-image : url('../../resources/image/back004.png');
         }
+         .logout-button{
+            background-color : #212529!important;
+            border : 0;
+            }
 	
         
     </style>
@@ -186,17 +191,19 @@
   <!-- Fixed navbar -->
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <img style="width:125px; height:62.5px;" class="navbar-brand" href="#" src="resources/images/lastlogo.png"/>
+      <img style="width:125px; height:62.5px;" class="navbar-brand" href="#" src="../../resources/images/lastlogo.png"/>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-           <a href="patRegisterpage.do" class="nav-link active" aria-current="page" href="#">회원등록</a>
+           <a href="/doctor/patientRegister?doctorId=${doctorEmail}" class="nav-link active" aria-current="page" href="#">회원등록</a>
           </li>
           <li class="nav-item">
-            <a href="logout.do" class="nav-link" href="#">로그아웃</a>
+          <form action="/doctor/logout" method="post">
+            <button class="nav-link logout-button">로그아웃</button>
+          </form>
           </li>
         </ul>
       </div>
@@ -330,38 +337,37 @@
 		for(let i=0; i<data.length; i++){
 			
 			html += '<tr>';
-			html += '<td id='+"'pat_id'"+'>'+data[i].pat_id+'</td>';
+			html += '<td id='+"'pat_id'"+'>'+data[i].id+'</td>';
 			
-			html += '<td id='+"'pat_name'"+'><a href="revise_info.do?pat_id='+data[i].pat_id+'">'+data[i].pat_name+'</a></td>';
-			//html="<td id=pat_name><a href='revise_info.do?pat_id="+data[i].pat_id+"'>"+data[i].pat_name+"</a></td>";
-			html += '<td id='+"'pat_age'"+'>'+data[i].pat_age+'</td>';
-			html += '<td id='+"'pat_gender'"+'>'+data[i].pat_gender+'</td>';
-			html += '<td id='+"'pat_phone'"+'>'+data[i].pat_phone+'</td>';
-			html += '<td id='+"'pat_address'"+'>'+data[i].pat_address+'</td>';
-			html += '<td id='+"'pp_date'"+'>'+data[i].pp_date+'</td>';
-			console.log('ggggggggg '+ data[i].pat_address);
-			if(data[i].pp_date == undefined){
+			html += '<td id='+"'pat_name'"+'><a href="revise_info.do?pat_id='+data[i].id+'">'+data[i].name+'</a></td>';
+			//html="<td id=pat_name><a href='revise_info.do?pat_id="+data[i].id+"'>"+data[i].name+"</a></td>";
+			html += '<td id='+"'pat_age'"+'>'+data[i].age+'</td>';
+			html += '<td id='+"'pat_gender'"+'>'+data[i].sex+'</td>';
+			html += '<td id='+"'pat_phone'"+'>'+data[i].phoneNumber+'</td>';
+			html += '<td id='+"'pat_address'"+'>'+data[i].address+'</td>';
+
+			if(data[i].score.length === 0){
 				html += '<td id='+"'pp_totalpoint'"+'>'+'훈련결과가 없습니다.</td>';
-			}else{
-				html += '<td id='+"'pp_totalpoint'"+'><a href="detail_result.do?pat_id='+data[i].pat_id+'">'+'<input type="button" value="결과보기"></a></td>';
-			}
+			 }else{
+			    html += '<td id='+"'pp_date'"+'>'+data[i].score[0].date.year+'년 '+data[i].score[0].date.monthValue+'월 '+data[i].score[0].date.dayOfMonth+"일"+'</td>';
+				html += '<td id='+"'pp_totalpoint'"+'><a href="detail_result.do?pat_id='+data[i].id+'">'+'<input type="button" value="결과보기"></a></td>';
+			 }
 			
 			
-			html += '<td id='+"'pat_del'"+'><input type="button" value="삭제" onclick="deleteFn2('+data[i].pat_id+')"></td>';
+			html += '<td id='+"'pat_del'"+'><input type="button" value="삭제" onclick="deleteFn2('+data[i].id+')"></td>';
 			
 			
 			
 			html += '<tr>';
 		} 
 
-		console.log(html); 
+
 		$('#vo').append(html);
 	}    
     $(function(){
-    	let data = JSON.parse('${info}');
-    	
+    	let data = JSON.parse('${patients}');
+    	console.log(data)
     	drawTable(data);
-
     });
     </script>
      

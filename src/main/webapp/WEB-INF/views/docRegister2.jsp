@@ -100,11 +100,11 @@ table p{
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원가입</p>
-        <form action="docRegister.do" method="post">
+        <form action="/doctor/signup" method="post">
             <table>
                 <tr>
                     <td>
-                        <p>아이디</p>
+                        <p>이메일</p>
                     </td>
                     <td>
                         <p>비밀번호</p>
@@ -112,10 +112,10 @@ table p{
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="doc_id" />
+                        <input class="underline0" type="text" name="email" />
                     </td>
                     <td>
-                        <input class="underline0" type="password" name="doc_pass" />
+                        <input class="underline0" type="password" name="password" />
                     </td>
                 </tr>
                 <tr>
@@ -128,10 +128,10 @@ table p{
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="doc_name" />
+                        <input class="underline0" type="text" name="name" />
                     </td>
                     <td>
-                        <input class="underline0" type="text" name="doc_phone" />
+                        <input class="underline0" type="text" name="phoneNumber" />
                     </td>
                 </tr>
 
@@ -139,16 +139,11 @@ table p{
                     <td>
                         <p>소속</p>
                     </td>
-                    <td>
-                        <p>이메일</p>
-                    </td>
+
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="doc_organization" />
-                    </td>
-                    <td>
-                        <input class="underline0" type="text" name="doc_email" />
+                        <input class="underline0" type="text" name="organization" />
                     </td>
                 </tr>
             </table>

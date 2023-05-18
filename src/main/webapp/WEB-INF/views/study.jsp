@@ -8,8 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<script src="resources/js/canvas.js"></script>
-<script src="scripts.js"></script>
+<script src="../../resources/js/canvas.js"></script>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -28,7 +27,7 @@ body {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	background-image: url('resources/images/back004.png');
+	background-image: url('../../resources/images/back004.png');
 	background-color: whitesmoke;
 	
 }
@@ -191,15 +190,15 @@ h1 {
 }
 </style>
 
-<script src="resources/js/canvas.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<audio id='audio_play1' src='resources/audio/${studySound}'></audio>
+<audio id='audio_play1' src='../../resources/audio/${problem.soundPath}'>
+</audio>
 <script type="text/javascript">
    function play() {
-      var audio = document.getElementById('audio_play1');
+      var audio = document.querySelector('audio');
       if (audio.paused) {
-         audio.play();
+        audio.play();
       } else {
          audio.pause();
          audio.currentTime = 0
@@ -212,21 +211,22 @@ h1 {
 </head>
 <body>
 	<div class=".col-xl-12 col-lg-12">
-		<div class="aa">문제풀이 ${pat_num}/10</div>
+		<div class="aa">문제풀이 ${problem.number}/10</div>
 		<div class="listen">
-			<a>인지영역: </a><a>${studyCategory}</a> <a><button class="bttn-3"
+			<a>인지영역: </a><a>${problem.category}</a> <a><button class="bttn-3"
 					onclick=play()>🔊문제듣기</button></a>
+
 		</div>
 	</div>
 	<div style="text-align: center;">
-		<h1 style="position: relative; left: 25%; top: 50px; width: 55%;">${studyContent}</h1>
+		<h1 style="position: relative; left: 25%; top: 50px; width: 55%;">${problem.content}</h1>
 	</div>
 	<!-- 문제 -->
 	<div id="q_n_a">
 		<div>
 			<!-- 문제 이미지 -->
 			<img class="question"
-				alt="이미지가 없습니다." src="resources/images/${studyImage}">
+				alt="이미지가 없습니다." src="../../resources/images/${problem.imagePath}">
 		</div>
 	</div>
 	<!--정답작성란-->
@@ -237,9 +237,7 @@ h1 {
 	</div>
 
 
-	<script src="resources/js/jquery-3.6.0.min.js"></script>
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-	<script>
+	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
         AOS.init();
     </script>
 	<script>
@@ -304,9 +302,7 @@ h1 {
                  return (clientY - bound.top - bw) * (canvas.height / (bound.height - bw * 2));
             }
     </script>
-	<script src="resources/js/jquery-3.6.0.min.js"></script>
-	<script src="scripts.js"></script>
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
 		integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
