@@ -71,9 +71,7 @@ public class DoctorController {
                 patient.getScore().sort(Comparator.comparing(Score::getDate).reversed());
             }
         });
-        for (Patient patient : patients) {
-            System.out.println("patient = " + patient.toString());
-        }
+
         ObjectMapper jsonMapper = new ObjectMapper();
         jsonMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
         String patientsJson = jsonMapper.writeValueAsString(patients);

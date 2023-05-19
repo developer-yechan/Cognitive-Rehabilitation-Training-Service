@@ -282,42 +282,20 @@
         AOS.init();
     </script> 
   <script type="text/javascript">
-   function deleteFn2(pat_id){
-		
-		//location.href="${ctx}/patientDelete.do?pat_id="+pat_id;
-		
+
+   function deleteFn(pat_id){
+
 	 	$.ajax({
-			url:"${ctx}/patientDelete.do?pat_id="+pat_id,
-			contentType:"application/x-www-form-urlencoded; charset=EUC-KR",
-			dataType:'json',
+			url:"${ctx}/patient/delete?patientId="+pat_id,
+			method : "DELETE",
 			success:function(result){
-				//alert('성공');
-				console.log(result);
-				
 				$('#vo').empty(); //기존 태그 비우기
 				drawTable(result);
 			}
 		});  
 		
 	}
-   function click(pat_id){
-		
-		//location.href="${ctx}/patientDelete.do?pat_id="+pat_id;
-		
-	 	$.ajax({
-			url:"${ctx}/revise_info.do?pat_id="+pat_id,
-			dataType:'json',
-			contentType:"application/x-www-form-urlencoded; charset=EUC-KR",
-			success:function(result){
-				//alert('성공');
-				console.log(result);
-				
-				$('#vo').empty(); //기존 태그 비우기
-				drawTable(result);
-			}
-		}); 
-		
-	}
+
 	
 	function drawTable(data){
 		let html = '';
@@ -339,8 +317,7 @@
 			html += '<tr>';
 			html += '<td id='+"'pat_id'"+'>'+data[i].id+'</td>';
 			
-			html += '<td id='+"'pat_name'"+'><a href="revise_info.do?pat_id='+data[i].id+'">'+data[i].name+'</a></td>';
-			//html="<td id=pat_name><a href='revise_info.do?pat_id="+data[i].id+"'>"+data[i].name+"</a></td>";
+			html += '<td id='+"'pat_name'"+'><a href="/patient/update?patientId='+data[i].id+'">'+data[i].name+'</a></td>';
 			html += '<td id='+"'pat_age'"+'>'+data[i].age+'</td>';
 			html += '<td id='+"'pat_gender'"+'>'+data[i].sex+'</td>';
 			html += '<td id='+"'pat_phone'"+'>'+data[i].phoneNumber+'</td>';
@@ -354,7 +331,7 @@
 			 }
 			
 			
-			html += '<td id='+"'pat_del'"+'><input type="button" value="삭제" onclick="deleteFn2('+data[i].id+')"></td>';
+			html += '<td id='+"'pat_del'"+'><input type="button" value="삭제" onclick="deleteFn('+data[i].id+')"></td>';
 			
 			
 			

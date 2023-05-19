@@ -10,6 +10,9 @@ import javax.persistence.Id;
 @Getter @Setter
 public class Problem {
 
+    protected Problem() {
+    }
+
     @Id @GeneratedValue
     private Long id;
 

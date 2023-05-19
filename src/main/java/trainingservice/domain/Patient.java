@@ -17,6 +17,10 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class Patient {
+
+    protected Patient() {
+    }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -27,7 +31,7 @@ public class Patient {
     private Doctor doctor;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<Score> score = new ArrayList<>();
 
     private String name;
@@ -39,6 +43,11 @@ public class Patient {
     private String phoneNumber;
 
     private String address;
+
+//    public void setDoctor(Doctor doctor) {
+//        this.doctor = doctor;
+//        doctor.getPatients().add(this);
+//    }
 
     @Override
     public String toString() {

@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @Getter @Setter
 public class Score {
+
+    public Score() {
+    }
     @Id @GeneratedValue
     private Long id;
 
@@ -31,8 +34,6 @@ public class Score {
     private int concentration;
     private int problemSolving;
 
-    public Score() {
-    }
 
     @Override
     public String toString() {

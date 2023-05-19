@@ -1,24 +1,9 @@
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="java.util.List"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<% List<PatientsVO>info=(List<PatientsVO>)application.getAttribute("re_info"); %>
-  <%
-    String aname= info.get(0).getPat_name();
-    int gender = info.get(0).getPat_gender();
-    int age=info.get(0).getPat_age();
-    String sex = "남자";
-    String doc_id=info.get(0).getDoc_id();
-    if(gender==0){
-    	
-    	sex="남성";
-    }else{
-    	sex="여성";
-    }
-    
-    %>
+
 <!DOCTYPE html>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,6 +35,9 @@
     font-size:1.9vw;
 
     }
+      .underline0.hidden {
+       visibility : hidden;
+        }
     .table1{
         width: 70%;
         position: absolute;
@@ -116,7 +104,7 @@
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원 수정</p>
-        <form action="revise_pat.do" method="post">
+        <form action="/patient/update" method="post">
             <table class="table1">
                 <tr>
                     <td colspan="2">
@@ -125,7 +113,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="pat_name" id="name" value=<%=info.get(0).getPat_name() %> />
+                        <input class="underline0" type="text" name="name" id="name" value="${patient.name}"/>
                     </td>
                 </tr>
 
@@ -140,10 +128,10 @@
 
                 <tr>
                     <td>
-                        <input class="underline0" type="number" name="pat_age" id="age" value=<%=info.get(0).getPat_age() %> />
+                        <input class="underline0" type="number" name="age" id="age" value="${patient.age}" />
                     </td>
                     <td> 
-                        <input class="underline0" type="number" name="pat_gender" id="sex" value=<%=info.get(0).getPat_gender() %>  />
+                        <input class="underline0" type="text" name="sex" id="sex" value="${patient.sex}" />
                     </td>
                 </tr>
                 <tr>
@@ -153,7 +141,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="doc_id" value=<%= info.get(0).getDoc_id() %> readonly/>
+
+                        <input class="underline0" type="text" name="doc_id" value="${patient.doctor.email}" readonly/>
                     </td>
                 </tr>
                 <tr>
@@ -163,7 +152,7 @@
                 </tr>
                 <tr>
                     <td colspan="2"> 
-                        <input class="underline0" type="text" name="pat_phone" value=<%= info.get(0).getPat_phone() %> />
+                        <input class="underline0" type="text" name="phoneNumber" value="${patient.phoneNumber}"/>
                     </td>
                 </tr>
                 <tr>
@@ -173,22 +162,27 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="pat_address" value=<%= info.get(0).getPat_address() %> />
+                        <input class="underline0" type="text" name="address" value="${patient.address}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input class="underline0 hidden" type="text" name="id" value="${patient.id}" readonly/>
                     </td>
                 </tr>
             </table>
             <input class ="submit3" type="submit" value="수정하기">
-            <a href="reloadHome.do"><input class ="return" type="button" value="뒤로가기"></a>
+            <a href="/doctor/home"><input class ="return" type="button" value="뒤로가기"></a>
         </form>
     </div>
 
-    <script src = "resources/js/jquery-3.6.0.min.js"></script>
+    <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
     <script src = "scripts.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-       <%--  document.getElementById("name").value= "<%= aname%>"; --%>
-        <%-- document.getElementById("age").value="<%= age%>"; --%>
-       <%--  document.getElementById("sex").value="<%= gender%>"; --%>
+       <%--  document.getElementById("name").value= "${patient.name}"; --%>
+        <%-- document.getElementById("age").value="${patient.age}"; --%>
+       <%--  document.getElementById("sex").value="${patient.sex}"; --%>
 
     </script>
     <script>

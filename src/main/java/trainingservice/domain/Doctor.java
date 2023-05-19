@@ -13,6 +13,15 @@ import java.util.List;
 @Getter @Setter
 public class Doctor {
 
+    public Doctor(Long id, String name, String phoneNumber, String organization, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.organization = organization;
+        this.email = email;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue
     private Long id;
@@ -33,4 +42,7 @@ public class Doctor {
     @JsonManagedReference
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients = new ArrayList<>();
+
+    protected Doctor() {
+    }
 }

@@ -38,7 +38,7 @@ public class PatientController {
     public String Login(@RequestParam("pat_id") Long patientId, Model model,
                         HttpServletRequest request)
     {
-        Patient patient = patientRepository.findByid(patientId);
+        Patient patient = patientRepository.findById(patientId);
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_PATIENT,patient);
         return "redirect:/patient/home";
@@ -82,6 +82,35 @@ public class PatientController {
         patient.setDoctor(doctor.get(0));
         patientRepository.save(patient);
 
+        return "redirect:/doctor/home";
+    }
+
+    @GetMapping("/update")
+    public String patientUpdatePage(@RequestParam Long patientId,Model model){
+        Patient patient = patientRepository.findById(patientId);
+        model.addAttribute("patient",patient);
+        System.out.println("patient = " + patient);
+        return "patinfo_revise";
+    }
+
+    @PostMapping("/update")
+    public String patientUpdate(@ModelAttribute Patient patient, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "patinfo_revise";
+        }
+        System.out.println("patient 제발= " + patient);
+         patientRepository.update(patient);
+        System.out.println("업데이트 완료!!!!!!!");
+
+        return "redirect:/doctor/home";
+    }
+
+    @DeleteMapping("/delete")
+    public String patientDelete(@RequestParam Long patientId){
+        int deletedRows = patientRepository.delete(patientId);
+        if(deletedRows == 0){
+            throw new IllegalStateException("이미 삭제된 회원입니다.");
+        }
         return "redirect:/doctor/home";
     }
 
