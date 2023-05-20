@@ -3,8 +3,10 @@ package trainingservice.repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
+import trainingservice.dto.PatientSearch;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,9 +20,34 @@ public class PatientRepository {
 
     private final EntityManager em;
 
-    public List<Patient> findByDoctor(Doctor doctor){
-        return em.createQuery("select distinct p from Patient p left join fetch p.score where p.doctor=:doctor")
-                .setParameter("doctor",doctor).getResultList();
+    public List<Patient> findByDoctor(Doctor doctor, PatientSearch patientSearch){
+        String jpql = "select distinct p from Patient p left join fetch p.score where p.doctor=:doctor";
+        //주문 상태 검색
+        if (patientSearch.getId() != null) {
+            jpql += " and p.id = :id";
+        }
+        //회원 이름 검색
+        if (StringUtils.hasText(patientSearch.getName())) {
+            jpql += " and p.name like :name";
+        }
+
+        if (StringUtils.hasText(patientSearch.getSex())) {
+            jpql += " and p.sex = :sex";
+        }
+        System.out.println("jpql = " + jpql);
+
+        TypedQuery<Patient> query = em.createQuery(jpql, Patient.class);
+        query.setParameter("doctor",doctor);
+        if (patientSearch.getId() != null) {
+            query = query.setParameter("id", patientSearch.getId());
+        }
+        if (StringUtils.hasText(patientSearch.getName())) {
+            query = query.setParameter("name", patientSearch.getName());
+        }
+        if (StringUtils.hasText(patientSearch.getSex())) {
+            query = query.setParameter("sex", patientSearch.getSex());
+        }
+        return query.getResultList();
     }
 
     public Patient findById(Long patientId){

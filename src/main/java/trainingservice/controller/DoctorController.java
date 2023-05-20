@@ -13,6 +13,7 @@ import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
 import trainingservice.domain.Score;
 import trainingservice.dto.LoginDTO;
+import trainingservice.dto.PatientSearch;
 import trainingservice.repository.DoctorRepository;
 import trainingservice.repository.PatientRepository;
 import trainingservice.repository.ScoreRepository;
@@ -53,7 +54,7 @@ public class DoctorController {
 //    }
 
     @GetMapping("/home")
-    public String LoginHome(HttpServletRequest request, Model model) throws JsonProcessingException {
+    public String LoginHome(@ModelAttribute PatientSearch patientSearch, HttpServletRequest request, Model model) throws JsonProcessingException {
         HttpSession session = request.getSession(false);
         if( session == null){
             return "loginHome2";
@@ -64,7 +65,7 @@ public class DoctorController {
             return "loginHome";
         }
 
-        List<Patient> patients = patientRepository.findByDoctor(doctor);
+        List<Patient> patients = patientRepository.findByDoctor(doctor,patientSearch);
 
         patients.stream().forEach(patient ->{
             if(patient.getScore() != null){

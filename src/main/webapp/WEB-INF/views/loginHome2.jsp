@@ -238,7 +238,7 @@
         <div class="vl"></div>
         <div class="login_page1 fade-in-box" >
             <div class = "login">
-                <form action="patLogin.do" method="post" class="row gx-3 gy-2 align-items-center">
+                <form action="/patient/home" method="post" class="row gx-3 gy-2 align-items-center">
                     <table>
                         <tr>
                             <td>

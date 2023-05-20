@@ -216,23 +216,23 @@
   <div class="page container">
     <h1 class="merong">이용자 관리</h1>
     <div id = "search_nav" >
-        <form action="selectPt.do" method="post" class="row gx-3 gy-2 align-items-center">
+        <form action="/doctor/home" method="get" class="row gx-3 gy-2 align-items-center">
             <div class="col-sm-3">
               <label class="visually-hidden" for="specificSizeInputName">Name</label>
-              <input type="text" class="form-control" id="specificSizeInputName" placeholder="회원 고유 번호" name="pat_id">
+              <input type="text" class="form-control" id="specificSizeInputName" placeholder="회원 고유 번호" name="id">
             </div>
             <div class="col-sm-3">
               <label class="visually-hidden" for="specificSizeInputGroupUsername">Username</label>
               <div class="input-group">
-                <input type="text" class="form-control" id="specificSizeInputGroupUsername" placeholder="회원 이름" name="pat_name">
+                <input type="text" class="form-control" id="specificSizeInputGroupUsername" placeholder="회원 이름" name="name">
               </div>
             </div>
             <div class="col-sm-3">
               <label class="visually-hidden" for="specificSizeSelect">Preference</label>
-              <select class="form-select" id="specificSizeSelect" name="pat_gender">
-                <option selected>성별</option>
-                <option value="0">남성</option>
-                <option value="1">여성</option>
+              <select class="form-select" id="specificSizeSelect" name="sex">
+              <option value="">성별</option>
+                <option value="남">남성</option>
+                <option value="여">여성</option>
               </select>
             </div>
             <div class="col-auto">
@@ -324,6 +324,7 @@
 			html += '<td id='+"'pat_address'"+'>'+data[i].address+'</td>';
 
 			if(data[i].score.length === 0){
+			    html += '<td id='+"'pp_date'"+'>'+'훈련결과가 없습니다.</td>';
 				html += '<td id='+"'pp_totalpoint'"+'>'+'훈련결과가 없습니다.</td>';
 			 }else{
 			    html += '<td id='+"'pp_date'"+'>'+data[i].score[0].date.year+'년 '+data[i].score[0].date.monthValue+'월 '+data[i].score[0].date.dayOfMonth+"일"+'</td>';
