@@ -3,6 +3,8 @@
 ## 목차
 [소개](#소개)
 
+[데이터베이스 모델링](#데이터베이스-모델링)
+
 [주요 기능](#주요-기능)
 
 [리팩토링 중점 사항](#리팩토링-중점-사항)
@@ -11,9 +13,20 @@
 
 ## 소개
 
+
+![patientGif](https://github.com/developer-yechan/Cognitive-Rehabilitation-Training-Service/assets/99064214/45352cf4-90fa-42c0-9197-6771359de456)
+
 - 본 프로젝트는 21년 3~4월에 진행했던 CNN 문자 인식 기반 인지 재활 훈련 서비스 구현 팀 프로젝트를 
   Spring Boot 및 JPA를 활용하여 리팩토링한 개인 프로젝트입니다.  
   기존 코드는 전체 리팩토링이 완료되면 삭제할 예정입니다.
+  
+## 데이터베이스 모델링
+
+### 클래스 다이어그램
+![인지재활-클래스다이어그램](https://github.com/developer-yechan/Cognitive-Rehabilitation-Training-Service/assets/99064214/370fa03c-80fa-49be-834f-78b734ec222f)
+### ERD
+![dbdiagram](https://github.com/developer-yechan/Cognitive-Rehabilitation-Training-Service/assets/99064214/6e02ec4e-f4cd-4e4a-b6cf-ce765de70f98)
+
 
 ## 주요 기능
 
