@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@page import="java.util.List"%>
+<%@page import="trainingservice.domain.Problem"%>
+<%@page import="trainingservice.dto.SolvedProblem"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -206,6 +209,8 @@ h1 {
    }
 </script>
 
+<% List<Problem> problems = (List<Problem>) application.getAttribute("problems"); %>
+<% List<SolvedProblem> solvedProblems = (List<SolvedProblem>) application.getAttribute("solvedProblems"); %>
 
 
 </head>
@@ -233,7 +238,11 @@ h1 {
 	<canvas id="canvas" width="480" height="240"></canvas>
 	<div class="options">
 		<input type="button" id="clear" value="💨 지우기" />
+		<% if (solvedProblems.size()+1 < problems.size()) {%>
 		<button id="next_page" onclick='canvastoimage()'>다음</button>
+		<%}else {%>
+        <button id="next_page" onclick='canvastofinalimage()'>제출</button>
+		<%}%>
 	</div>
 
 

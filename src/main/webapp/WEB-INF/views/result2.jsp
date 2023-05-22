@@ -1,8 +1,8 @@
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="kr.smhrd.model.PatientpointVO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="trainingservice.domain.Score"%>
+    <%@page import="java.util.List"%>
+    <%@page import="java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,64 +87,29 @@ span{
 #back{
     margin-top:2%;
 }
+.logout-button{
+  background-color : #212529!important;
+  border : 0;
+  }
     </style>
 
-	<%
-	List<PatientpointVO> allinfo = (List<PatientpointVO>) application.getAttribute("allinfo");
-	 List<PatientsVO> patlog = (List<PatientsVO>)application.getAttribute("patlog"); %>
-
-<%
-	int totalpoint = 0;
-	int zinam = 0;
-	int giuk = 0;
-	int gesan = 0;
-	int zipjoon = 0;
-	int moonje = 0;
-	
-
-	if(allinfo.size()<=0){
-		
-		 totalpoint = 0;
-		 zinam = 0;
-		 giuk = 0;
-		 gesan = 0;
-		 zipjoon = 0;
-		 moonje = 0;
-
-	}
-	
-
-	
-	
-	%>
-	<% 
-	if(allinfo.size()>0){
-		  for(int i=0;i< allinfo.size();i++){
-		   
-		   totalpoint += allinfo.get(i).getTotalpoint();
-		   zinam += allinfo.get(i).getZinam();
-		   giuk += allinfo.get(i).getGiuk();
-		   gesan += allinfo.get(i).getGesan();
-		   zipjoon += allinfo.get(i).getZipjoon();
-		   moonje += allinfo.get(i).getMoonje();
-		  }
-		} 
-	 
-%>
-   
+   	<%
+   	List<Score> scores = (List<Score>) application.getAttribute("scores"); %>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <div class="container-fluid">
-              <img style="width:125px; height:62.5px" class="navbar-brand" href="#" src="resources/images/lastlogo.png">
+              <img style="width:125px; height:62.5px" class="navbar-brand" href="#" src="../../resources/images/lastlogo.png">
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                   <li class="nav-item">
-                    <a class="nav-link" href="logout.do">로그아웃</a>
+                    <form action="/patient/logout" method="post">
+                      <button class="nav-link logout-button">로그아웃</button>
+                    </form>
                   </li>
                 </ul>
               </div>
@@ -158,7 +123,7 @@ span{
         </header>
         <div id="check">
             <div class ="col-md-12">
-                <p id="member_name3"><%=patlog.get(0).getPat_name()%>님 결과입니다.</p>
+                <p id="member_name3">${scores.get(0).patient.name}님 결과입니다.</p>
             </div>
             <div class="radio col-md-8">
                 <span><input id = "check1" type = "radio" checked = "checked" name = "choose" onclick="dispList('0')"><label>영역별 점수</label></span>
@@ -199,12 +164,12 @@ span{
                     <tbody>
                       <tr>
                         <td class="tg-c3ow">정답 수</td>
-                        <td class="tg-c3ow"><%=zinam %></td>
-                        <td class="tg-c3ow"><%=giuk %></td>
-                        <td class="tg-c3ow"><%=gesan %></td>
-                        <td class="tg-c3ow"><%=zipjoon %></td>
-                        <td class="tg-c3ow"><%=moonje %></td>
-                        <td class="tg-c3ow"><%=totalpoint %></td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).orientation}</td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).memory}</td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).calculation}</td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).concentration}</td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).problemSolving}</td>
+                        <td class="tg-c3ow">${scores.get(scores.size()-1).totalPoint}</td>
                       </tr>
                     </tbody>
                     </table>
@@ -212,62 +177,68 @@ span{
     
         </div>
         <footer id="back">
-            <a href="restudymain.do"><input class ="return" type="button" value="뒤로가기"></a>
+            <a href="/patient/home"><input class ="return" type="button" value="뒤로가기"></a>
+            <input type="hidden" name="scores" value="${scores}">
         </footer>
     </div>
-    <script>
+    <script type="text/javascript">
         let myChartOne = document.getElementById('myChartOne').getContext('2d');
-  
+
           let barChart = new Chart(myChartOne, {
               type : 'bar', // pie, line, doughnut, polarArea
               data : {
                   labels : ['지남력', ' 기억력', '계산력', '집중력', '문제해결'],
                   datasets :[{
-                      label : '회원 영역별 점수', 
+                      label : '회원 영역별 점수',
                       data : [
-                    	  <%= zinam*10%>,
-                          <%= giuk*10%>,
-                          <%= gesan*10%>,
-                          <%= zipjoon*10%>,
-                          <%= moonje*10%>
-                         
+                    	  <%= scores.get(scores.size()-1).getOrientation()*10 %>,
+                          <%= scores.get(scores.size()-1).getMemory()*10 %>,
+                          <%= scores.get(scores.size()-1).getCalculation()*10 %>,
+                          <%= scores.get(scores.size()-1).getConcentration()*10 %>,
+                          <%= scores.get(scores.size()-1).getProblemSolving()*10 %>
+
                       ]
                   }]
-              }
-  
-  
+              },
+               options : {
+                 scales : {
+                           x:{
+                                },
+                           y : {
+                                 ticks : {
+                                            beginSize : true,
+                                            suggesteMin : 0,
+                                            max : 100,
+                                            stepSize : 10,
+                                         }
+                                 }
+                           } //scales
+                          } //options
           })
-  
+
           let barChartTwo = new Chart(myChartTwo, {
               type : 'line', // pie, line, doughnut, polarArea
               data : {
                   labels : [
-                	  <% for(int i=allinfo.size()-1; i>=0 ;i--){%>
-                	  <% if(i >0) {%>
-                	  
-                	  '<%= allinfo.get(i).getPp_date()%>',
-                	  
-                	  <%}else if(i==0){%>
-                	  
-                	  '<%= allinfo.get(i).getPp_date()%>'
-                	  <%}%>
+                	  <% for(int i=scores.size()-2; i>=0 ;i--){%>
+                         <% if(i >0) {%>
+                         '<%= scores.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))%>',
+                         <%}else if(i==0){%>
+                         '<%= scores.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))%>'
+                         <%}%>
                 	   <%}%>
-                	
                 	  ],
-                  
+
                   datasets :[{
-                      label : '회원 날짜별 점수', 
+                      label : '회원 날짜별 점수',
                       data : [
-                    	   <% for(int i=allinfo.size()-1; i>=0 ;i--){%>
-                    	  <% if(i >0) {%>
-                    	  
-                    	  <%= allinfo.get(i).getTotalpoint()%>,
-                    	  
-                    	  <%}else if(i==0){%>
-                    	  
-                    	  <%= allinfo.get(i).getTotalpoint()%>
-                    	  <%}%>
-                    	   <%}%>
+                            <% for(int i=scores.size()-2; i>=0 ;i--){%>
+                             <% if(i >0) {%>
+                             <%= scores.get(i).getTotalPoint()*10%>,
+                             <%}else if(i==0){%>
+                             <%= scores.get(i).getTotalPoint()*10%>
+                             <%}%>
+                           <%}%>
                       ],
                       backgroundColor : [
                           'red',
@@ -278,27 +249,26 @@ span{
                       ],
                       borderWidth : 10, // 볼더 크기
                       borderColor : '#8db4d1', // 볼더 색상
-                  
+
                   }]
-              },
+              }, //data
               options : {
-                  reponsive : false,
                   scales : {
                      x:{
-                         
+
                      },
                       y : {
                           ticks : {
                               beginSize : true,
-                              suggesteMin : 0, 
-                              max : 20,
-                              stepSize : 2,
+                              suggesteMin : 0,
+                              max : 100,
+                              stepSize : 10,
                           }
                       }
-  
-                  }
-              }
-  
+
+                  } //scales
+              } //options
+
           });
      </script>
       <script type="text/javascript">
@@ -317,7 +287,7 @@ span{
         }
             
     </script>
-    <script src = "resources/js/jquery-3.6.0.min.js"></script>
+    <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

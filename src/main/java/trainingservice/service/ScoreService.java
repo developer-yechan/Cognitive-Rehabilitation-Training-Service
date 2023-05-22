@@ -8,9 +8,9 @@ import trainingservice.domain.Score;
 import trainingservice.dto.SolvedProblem;
 import trainingservice.repository.ScoreRepository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +24,23 @@ public class ScoreService {
         Score score = calculateScore(solvedProblems, problems, patient);
         scoreRepository.save(score);
         return score;
+    }
+
+    public List<Score> scorePerWeek(Patient patient){
+        List<Score> scores = scoreRepository.findByPatient(patient);
+        if(scores.size() == 0){
+            return scores;
+        }
+        Score sumScore = new Score(0,0,0,0,0,0);
+        for (Score score : scores) {
+            sumScore.setTotalPoint(sumScore.getTotalPoint()+score.getTotalPoint());
+            sumScore.setOrientation(sumScore.getOrientation()+score.getOrientation());
+            sumScore.setMemory(sumScore.getMemory()+score.getMemory());
+            sumScore.setCalculation(sumScore.getCalculation()+score.getCalculation());
+            sumScore.setConcentration(sumScore.getConcentration()+score.getConcentration());
+        }
+        scores.add(sumScore);
+        return scores;
     }
 
     public Score calculateScore(List<SolvedProblem> solvedProblems,

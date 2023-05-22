@@ -34,7 +34,7 @@ public class PatientController {
 //        return "loginHome2";
 //    }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String Login(@RequestParam("pat_id") Long patientId, Model model,
                         HttpServletRequest request)
     {
@@ -98,9 +98,7 @@ public class PatientController {
         if(bindingResult.hasErrors()){
             return "patinfo_revise";
         }
-        System.out.println("patient 제발= " + patient);
          patientRepository.update(patient);
-        System.out.println("업데이트 완료!!!!!!!");
 
         return "redirect:/doctor/home";
     }

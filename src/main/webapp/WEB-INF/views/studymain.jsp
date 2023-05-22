@@ -150,7 +150,7 @@
             <p id="question" data-aos="flip-up" data-aos-duration="2000">훈련 시작</p>
         </div></a>
  
-         <a href="allGraph.do"><div data-aos="fade-up" data-aos-duration="1500" class="right">
+         <a href="/train/score/statistics"><div data-aos="fade-up" data-aos-duration="1500" class="right">
             <p id="result" data-aos="flip-up" data-aos-duration="2000" >결과 보기</p>
         </div></a>
 

@@ -7,6 +7,9 @@ import trainingservice.domain.Patient;
 import trainingservice.domain.Score;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,10 +18,22 @@ public class ScoreRepository {
 
     private final EntityManager em;
 
-    public Patient findByPatient(Patient patient){
-        return (Patient) em.createQuery("select s From score s where s.patient=:patient order by date desc limit 1")
-                .setParameter("patient", patient).getSingleResult();
+    public List<Score> findByPatient(Patient patient){
+        return em.createQuery("select s From Score s where s.patient=:patient order by date desc")
+                .setParameter("patient", patient)
+                .setMaxResults(7)
+                .getResultList();
     }
+
+    public List<Score> findTodayResultByPatient(Patient patient){
+        return em.createQuery("select s From Score s where s.patient=:patient and s.date between :startDate and :endDate")
+                .setParameter("patient", patient)
+                .setParameter("startDate", LocalDateTime.now().minusDays(1))
+                .setParameter("endDate", LocalDateTime.now().now())
+                .getResultList();
+    }
+
+
     @Transactional
     public void save(Score score){
         em.persist(score);

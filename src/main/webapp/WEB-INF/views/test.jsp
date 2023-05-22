@@ -1,6 +1,3 @@
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="kr.smhrd.model.MemberVO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -121,7 +118,7 @@
     
 </style>
 
-<% List<PatientsVO> patlog=(List<PatientsVO>)application.getAttribute("patlog"); %>
+
 </head>
 <body>
     <div class="main8">
@@ -130,10 +127,10 @@
               <div class="col col-lg-2">
                 </div>
               <div class="col-md-auto">
-                <p class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left"><%=patlog.get(0).getPat_name() %>님 아직 훈련을 하지 않으셨습니다.</p>
+                <p class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left">${patientName}님 아직 훈련을 하지 않으셨습니다.</p>
               </div>
               <div class="col col-lg-2 pull-right">
-                <a href="restudymain.do"><input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="button" value="돌아가기"></a>
+                <a href="/patient/home"><input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="button" value="돌아가기"></a>
               </div>
             </div>
          </div>

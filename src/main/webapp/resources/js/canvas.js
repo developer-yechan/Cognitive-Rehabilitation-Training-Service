@@ -101,6 +101,13 @@ function canvastoimage(){
    sendImage(dataUrl)
 }
 
+function canvastofinalimage(){
+   var canvas = document.getElementById('canvas');
+   var dataUrl = canvas.toDataURL();
+   //alert(dataUrl)
+   sendFinalImage(dataUrl)
+}
+
 function sendImage(dataUrl){
    $.ajax({
         url: "http://localhost:9600/draw/predict",
@@ -115,4 +122,41 @@ function sendImage(dataUrl){
           alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
       }
    });
+}
+
+function sendFinalImage(dataUrl){
+   $.ajax({
+        url: "http://localhost:9600/draw/predict",
+        data: {
+          img: dataUrl
+        },
+        method :"POST",
+        success: function( result ) {
+         post_to_url("http://localhost:8080/train/score",{"result" : result})
+        },
+       error:function(request,status,error){
+          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      }
+   });
+}
+
+/*
+ * path : 전송 URL
+ * params : 전송 데이터 {'q':'a','s':'b','c':'d'...}으로 묶어서 배열 입력
+ * method : 전송 방식(생략가능)
+ */
+function post_to_url(path, params) {
+    method = "post";
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+    for(var key in params) {
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", params[key]);
+        form.appendChild(hiddenField);
+    }
+    document.body.appendChild(form);
+    form.submit();
 }

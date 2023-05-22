@@ -41,17 +41,11 @@ public class DoctorController {
 
     private final ScoreRepository scoreRepository;
 
-//    private final SessionManager sessionManager;
-
     @GetMapping("/signup")
     public String MoveToSignUp(){
         return "docRegister2";
     }
 
-//    @GetMapping("/login")
-//    public String MoveToLogin(){
-//        return "loginHome2";
-//    }
 
     @GetMapping("/home")
     public String LoginHome(@ModelAttribute PatientSearch patientSearch, HttpServletRequest request, Model model) throws JsonProcessingException {
