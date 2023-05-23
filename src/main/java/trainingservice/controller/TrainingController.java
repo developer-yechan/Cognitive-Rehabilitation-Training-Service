@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
 import trainingservice.domain.Problem;
 import trainingservice.domain.Score;
 import trainingservice.dto.SolvedProblem;
+import trainingservice.repository.PatientRepository;
 import trainingservice.repository.ProblemRepository;
 import trainingservice.repository.ScoreRepository;
 import trainingservice.service.ScoreService;
@@ -31,6 +33,7 @@ public class TrainingController {
 
     private final ProblemRepository problemRepository;
 
+    private final PatientRepository patientRepository;
     private final ScoreRepository scoreRepository;
     private final ScoreService scoreService;
     private final ServletContext application;
@@ -111,17 +114,34 @@ public String saveScore(@RequestParam("result") String result, HttpServletReques
     }
 
     @GetMapping("/score/statistics")
-    public String moveToStatistics(HttpServletRequest request, Model model) throws JsonProcessingException {
-        HttpSession session = request.getSession(false);
-        Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+    public String moveToStatistics(HttpServletRequest request, Model model) {
+            HttpSession session = request.getSession(false);
+
+            Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+            List<Score> scores = scoreService.scorePerWeek(patient);
+            if(scores.size() ==0){
+                model.addAttribute("patientName",patient.getName());
+                return "test";
+            }
+            model.addAttribute("scores",scores);
+            application.setAttribute("scores",scores);
+
+            return "result2";
+        }
+    @GetMapping("/doctor/confirm")
+    public String moveToDoctorConfirm(@RequestParam Long patientId, HttpServletRequest request, Model model){
+        Patient patient = patientRepository.findById(patientId);
+        System.out.println("patient = " + patient);
         List<Score> scores = scoreService.scorePerWeek(patient);
+        System.out.println("scores = " + scores);
         if(scores.size() ==0){
             model.addAttribute("patientName",patient.getName());
             return "test";
         }
         model.addAttribute("scores",scores);
+        model.addAttribute("patientName",patient.getName());
         application.setAttribute("scores",scores);
-        return "result2";
+        return "Detailed_result";
     }
 
 }

@@ -14,7 +14,7 @@
 </head>
 <body>
 <!-- 치료사 로그인 페이지  -->
-<form action="docLogin.do">
+<form action="/doctor/login",method="post">
 <table>
 <tr>
 <td>아이디</td>

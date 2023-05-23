@@ -44,11 +44,11 @@ public class Score {
     private int concentration;
     private int problemSolving;
 
-
     @Override
     public String toString() {
         return "Score{" +
-                "date=" + date +
+                "id=" + id +
+                ", totalPoint=" + totalPoint +
                 '}';
     }
 }

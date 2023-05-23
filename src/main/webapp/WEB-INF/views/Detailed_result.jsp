@@ -1,8 +1,8 @@
-<%@page import="kr.smhrd.model.PatientsVO"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.smhrd.model.PatientpointVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="trainingservice.domain.Score"%>
+    <%@page import="java.util.List"%>
+    <%@page import="java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +23,6 @@
         background-size: cover;
     }
          #result_page{
-             width: 90%;
              height:880px;
              margin: auto;
              margin-top:10px;
@@ -60,9 +59,9 @@
     background-color: #d7e0e7;
 }
 .container{
-    position: absolute;
-    left:35%;
-    top:20%;
+    position: relative;
+    left: 55vh;
+    bottom: 45vh;
 }
 #member_name3{
     font-size: 1.5vw;
@@ -151,43 +150,8 @@ span{
   text-anchor: middle;
 }
     </style>
-	<% List<PatientsVO> patlog = (List<PatientsVO>)application.getAttribute("patlog"); %>
-   <% List<PatientpointVO>allinfo =(List<PatientpointVO>)application.getAttribute("resultinfo"); %>
-   <%
-	int totalpoint = 0;
-	int zinam = 0;
-	int giuk = 0;
-	int gesan = 0;
-	int zipjoon = 0;
-	int moonje = 0;
-	
-	
-	if(allinfo.size()<=0){
-		
-		 totalpoint = 0;
-		 zinam = 0;
-		 giuk = 0;
-		 gesan = 0;
-		 zipjoon = 0;
-		 moonje = 0;
-
-	}
-	
-	%>
-	<% 
-	if(allinfo.size()>0){
-	  for(int i=0;i< allinfo.size();i++){
-	   
-	   totalpoint += allinfo.get(i).getTotalpoint();
-	   zinam += allinfo.get(i).getZinam();
-	   giuk += allinfo.get(i).getGiuk();
-	   gesan += allinfo.get(i).getGesan();
-	   zipjoon += allinfo.get(i).getZipjoon();
-	   moonje += allinfo.get(i).getMoonje();
-	  }
-	} 
-	 
-%>
+   <% List<Score>scores =(List<Score>) application.getAttribute("scores"); %>
+    <% System.out.println("jsp scores = " + scores); %>
 </head>
 <body>
     <div id="result_page">
@@ -200,7 +164,7 @@ span{
             	이거 반복문 돌면서 꺼내자나요 아마도 리스트 안에 있는거 같은데 그럼 리스트안에 점수가 0점이라면 출력이 안되게 조건문 걸면되요
  	잠깐만요           
              -->
-                <p id="member_name3">${name}님 결과입니다.</p>
+                <p id="member_name3">${patientName}님 결과입니다.</p>
             </div>
             <div class="radio col-md-8">
                 <span><input id = "check1" type = "radio" checked = "checked" name = "choose" onclick="dispList('0')"><label>영역별 점수</label></span>
@@ -217,14 +181,14 @@ span{
                                 a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
-                     <!-- 점수 "점수,최대"  stroke-dasharray-->
+                     <!-- 점수 "점수,평균"  stroke-dasharray-->
                           <path class="circle"
-                             stroke-dasharray="<%=allinfo.get(0).getTotalpoint()*10%>, 100" 
+                             stroke-dasharray="<%=(int)(scores.get(scores.size()-1).getTotalPoint()*10/(scores.size()-1))%>, 100"
                              d="M18 2.0845
                                  a 15.9155 15.9155 0 0 1 0 31.831
                                 a 15.9155 15.9155 0 0 1 0 -31.831"
                 />
-                         <text x="18" y="20.35" class="percentage"><%=allinfo.get(0).getTotalpoint()*10%>점</text>
+                         <text x="18" y="20.35" class="percentage"><%=(int)(scores.get(scores.size()-1).getTotalPoint()*10/(scores.size()-1))%>점</text>
                          </svg>
                      </div>
                      <div class="container">
@@ -258,19 +222,19 @@ span{
                         <tbody>
                           <tr>
                              <td class="tg-c3ow">정답 수</td>
-                        <td class="tg-c3ow"><%=zinam %></td>
-                        <td class="tg-c3ow"><%=giuk %></td>
-                        <td class="tg-c3ow"><%=gesan %></td>
-                        <td class="tg-c3ow"><%=zipjoon %></td>
-                        <td class="tg-c3ow"><%=moonje %></td>
-                        <td class="tg-c3ow"><%=totalpoint %></td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).orientation}</td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).memory}</td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).calculation}</td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).concentration}</td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).problemSolving}</td>
+                             <td class="tg-c3ow">${scores.get(scores.size()-1).totalPoint}</td>
                           </tr>
                         </tbody>
                         </table>
                 </div>
             </div>
             <footer id="back">
-                <a href="reloadHome.do"><input class ="return" type="button" value="뒤로가기"></a>
+                <a href="/doctor/home"><input class ="return" type="button" value="뒤로가기"></a>
             </footer>
         </div>
 
@@ -285,46 +249,57 @@ span{
                   datasets :[{
                       label : '회원 영역별 점수', 
                       data : [
-                    	  <%= zinam%>,
-                          <%= giuk%>,
-                          <%= gesan%>,
-                          <%= zipjoon%>,
-                          <%= moonje%>,
-                          <%= totalpoint%>
+                            <%= scores.get(scores.size()-1).getOrientation()*10 %>,
+                            <%= scores.get(scores.size()-1).getMemory()*10 %>,
+                            <%= scores.get(scores.size()-1).getCalculation()*10 %>,
+                            <%= scores.get(scores.size()-1).getConcentration()*10 %>,
+                            <%= scores.get(scores.size()-1).getProblemSolving()*10 %>,
+                            <%= scores.get(scores.size()-1).getTotalPoint()*10 %>
                       ]
                   }]
+              },
+              options :{
+              scales : {
+                         x:{
+                              },
+                         y : {
+                               max : 100,
+                               ticks : {
+                                          beginSize : true,
+                                          suggesteMin : 0,
+                                          stepSize : 10,
+                                       }
+                               }
+                       } //scales
               }
   
   
           })
-  
+
           let barChartTwo = new Chart(myChartTwo, {
               type : 'line', // pie, line, doughnut, polarArea
               data : {
-                  labels : [ 
-                  <% for(int i=allinfo.size()-1; i>=0 ;i--){%>
+                  labels : [
+                  <% for(int i=scores.size()-2; i>=0 ;i--){%>
             	  <% if(i >0) {%>
-            	  
-            	  '<%= allinfo.get(i).getPp_date()%>',
-            	  
+            	  '<%= scores.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))%>',
             	  <%}else if(i==0){%>
-            	  
-            	  '<%= allinfo.get(i).getPp_date()%>'
+            	  '<%= scores.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))%>'
             	  <%}%>
             	   <%}%>
             	   ],
-                  
+
                   datasets :[{
-                      label : '회원 요일별 점수', 
+                      label : '회원 날짜별 점수',
                       data : [
-                    	  <% for(int i=allinfo.size()-1; i>=0 ;i--){%>
+                    	  <% for(int i=scores.size()-2; i>=0 ;i--){%>
                     	  <% if(i >0) {%>
-                    	  
-                    	  <%= allinfo.get(i).getTotalpoint()%>,
-                    	  
+
+                    	  <%= scores.get(i).getTotalPoint()*10%>,
+
                     	  <%}else if(i==0){%>
-                    	  
-                    	  <%= allinfo.get(i).getTotalpoint()%>
+
+                    	  <%= scores.get(i).getTotalPoint()*10%>
                     	  <%}%>
                     	   <%}%>
                       ],
@@ -337,27 +312,28 @@ span{
                       ],
                       borderWidth : 10, // 볼더 크기
                       borderColor : '#8db4d1', // 볼더 색상
-                  
+
                   }]
               },
               options : {
-                  reponsive : false,
                   scales : {
                      x:{
-                         
+
                      },
                       y : {
+                             max : 100,
+                             min : 0,
                           ticks : {
+
                               beginSize : true,
-                              suggesteMin : 0, 
-                              max : 20,
-                              stepSize : 2,
+                              suggesteMin : 0,
+                              stepSize : 10,
                           }
                       }
-  
+
                   }
               }
-  
+
           });
      </script>
       <script type="text/javascript">
@@ -376,7 +352,7 @@ span{
         }
             
     </script>
-    <script src = "jquery-3.6.0.min.js"></script>
+    <script src = "../../resources/js/jquery-3.6.0.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();

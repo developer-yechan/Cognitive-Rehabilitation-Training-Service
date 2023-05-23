@@ -187,7 +187,7 @@ span{
           let barChart = new Chart(myChartOne, {
               type : 'bar', // pie, line, doughnut, polarArea
               data : {
-                  labels : ['지남력', ' 기억력', '계산력', '집중력', '문제해결'],
+                  labels : ['지남력', ' 기억력', '계산력', '집중력', '문제해결','총합'],
                   datasets :[{
                       label : '회원 영역별 점수',
                       data : [
@@ -195,7 +195,8 @@ span{
                           <%= scores.get(scores.size()-1).getMemory()*10 %>,
                           <%= scores.get(scores.size()-1).getCalculation()*10 %>,
                           <%= scores.get(scores.size()-1).getConcentration()*10 %>,
-                          <%= scores.get(scores.size()-1).getProblemSolving()*10 %>
+                          <%= scores.get(scores.size()-1).getProblemSolving()*10 %>,
+                          <%= scores.get(scores.size()-1).getTotalPoint()*10 %>
 
                       ]
                   }]
@@ -205,10 +206,10 @@ span{
                            x:{
                                 },
                            y : {
+                                 max : 100,
                                  ticks : {
                                             beginSize : true,
                                             suggesteMin : 0,
-                                            max : 100,
                                             stepSize : 10,
                                          }
                                  }
@@ -252,22 +253,21 @@ span{
 
                   }]
               }, //data
-              options : {
-                  scales : {
-                     x:{
-
-                     },
-                      y : {
-                          ticks : {
-                              beginSize : true,
-                              suggesteMin : 0,
-                              max : 100,
-                              stepSize : 10,
-                          }
-                      }
-
-                  } //scales
-              } //options
+               options : {
+                   scales : {
+                               x:{
+                                    },
+                               y : {
+                                     max : 100,
+                                     min : 0,
+                                     ticks : {
+                                                beginSize : true,
+                                                suggesteMin : 0,
+                                                stepSize : 10,
+                                             }
+                                     }
+                             } //scales
+                         } //options
 
           });
      </script>

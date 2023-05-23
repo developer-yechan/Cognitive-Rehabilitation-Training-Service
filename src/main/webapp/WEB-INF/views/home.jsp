@@ -328,7 +328,7 @@
 				html += '<td id='+"'pp_totalpoint'"+'>'+'훈련결과가 없습니다.</td>';
 			 }else{
 			    html += '<td id='+"'pp_date'"+'>'+data[i].score[0].date.year+'년 '+data[i].score[0].date.monthValue+'월 '+data[i].score[0].date.dayOfMonth+"일"+'</td>';
-				html += '<td id='+"'pp_totalpoint'"+'><a href="detail_result.do?pat_id='+data[i].id+'">'+'<input type="button" value="결과보기"></a></td>';
+				html += '<td id='+"'pp_totalpoint'"+'><a href="/train/doctor/confirm?patientId='+data[i].id+'">'+'<input type="button" value="결과보기"></a></td>';
 			 }
 			
 			

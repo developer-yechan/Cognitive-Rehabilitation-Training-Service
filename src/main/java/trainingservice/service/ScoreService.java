@@ -33,12 +33,14 @@ public class ScoreService {
         }
         Score sumScore = new Score(0,0,0,0,0,0);
         for (Score score : scores) {
+            System.out.println("score = " + score);
             sumScore.setTotalPoint(sumScore.getTotalPoint()+score.getTotalPoint());
             sumScore.setOrientation(sumScore.getOrientation()+score.getOrientation());
             sumScore.setMemory(sumScore.getMemory()+score.getMemory());
             sumScore.setCalculation(sumScore.getCalculation()+score.getCalculation());
             sumScore.setConcentration(sumScore.getConcentration()+score.getConcentration());
         }
+        System.out.println("sumScore = " + sumScore);
         scores.add(sumScore);
         return scores;
     }
