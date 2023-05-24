@@ -201,7 +201,7 @@
            <a href="/doctor/patientRegister?doctorId=${doctorEmail}" class="nav-link active" aria-current="page" href="#">회원등록</a>
           </li>
           <li class="nav-item">
-          <form action="/doctor/logout" method="post">
+          <form action="/logout" method="post">
             <button class="nav-link logout-button">로그아웃</button>
           </form>
           </li>

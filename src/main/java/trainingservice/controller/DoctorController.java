@@ -19,7 +19,7 @@ import trainingservice.repository.PatientRepository;
 import trainingservice.repository.ScoreRepository;
 import trainingservice.service.LoginService;
 import trainingservice.session.SessionConst;
-
+import trainingservice.web.argumentresolver.Login;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -48,12 +48,7 @@ public class DoctorController {
 
 
     @GetMapping("/home")
-    public String LoginHome(@ModelAttribute PatientSearch patientSearch, HttpServletRequest request, Model model) throws JsonProcessingException {
-        HttpSession session = request.getSession(false);
-        if( session == null){
-            return "loginHome2";
-        }
-        Doctor doctor = (Doctor) session.getAttribute(SessionConst.LOGIN_DOCTOR);
+    public String LoginHome(@ModelAttribute PatientSearch patientSearch, @Login Doctor doctor, Model model) throws JsonProcessingException {
 
         if(doctor == null){
             return "loginHome";
@@ -90,7 +85,7 @@ public class DoctorController {
         }
         doctorRepository.save(doctor);
 
-        return "redirect:/doctor/login";
+        return "redirect:/login";
     }
 
     @PostMapping("/login")
@@ -107,16 +102,6 @@ public class DoctorController {
 
         return "redirect:/doctor/home";
 
-    }
-
-    @PostMapping("/logout")
-    public String Logout(HttpServletRequest request)
-    {
-        HttpSession session = request.getSession(false);
-        if(session != null){
-            session.invalidate();
-        }
-        return "redirect:/doctor/home";
     }
 
     @GetMapping("/patientRegister")

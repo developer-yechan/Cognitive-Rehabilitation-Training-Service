@@ -18,6 +18,7 @@ import trainingservice.repository.ProblemRepository;
 import trainingservice.repository.ScoreRepository;
 import trainingservice.service.ScoreService;
 import trainingservice.session.SessionConst;
+import trainingservice.web.argumentresolver.Login;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +40,7 @@ public class TrainingController {
     private final ServletContext application;
 
     @GetMapping
-    public String moveToTrain(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession(false);
-        Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+    public String moveToTrain(@Login Patient patient, Model model) {
         List<Score> todayResult = scoreRepository.findTodayResultByPatient(patient);
         if (todayResult.size() > 0){
             return "redirect:/patient/home";
@@ -84,9 +83,7 @@ public class TrainingController {
     }
 
 @PostMapping("/score")
-public String saveScore(@RequestParam("result") String result, HttpServletRequest request,Model model){
-    HttpSession session = request.getSession(false);
-    Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+public String saveScore(@RequestParam("result") String result, @Login Patient patient,Model model){
     List<SolvedProblem> solvedProblems = (List<SolvedProblem>) application.getAttribute("solvedProblems");
     List<Problem> problems = (List<Problem>) application.getAttribute("problems");
     SolvedProblem solvedProblem = new SolvedProblem();
@@ -101,9 +98,7 @@ public String saveScore(@RequestParam("result") String result, HttpServletReques
 }
 
     @GetMapping("/score")
-    public String moveToScore(HttpServletRequest request,Model model){
-        HttpSession session = request.getSession(false);
-        Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+    public String moveToScore(@Login Patient patient,Model model){
         List<Score> todayScore = scoreRepository.findTodayResultByPatient(patient);
         if(todayScore.size() == 0){
             model.addAttribute("patientName",patient.getName());
@@ -114,10 +109,7 @@ public String saveScore(@RequestParam("result") String result, HttpServletReques
     }
 
     @GetMapping("/score/statistics")
-    public String moveToStatistics(HttpServletRequest request, Model model) {
-            HttpSession session = request.getSession(false);
-
-            Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+    public String moveToStatistics(@Login Patient patient, Model model) {
             List<Score> scores = scoreService.scorePerWeek(patient);
             if(scores.size() ==0){
                 model.addAttribute("patientName",patient.getName());
@@ -131,9 +123,7 @@ public String saveScore(@RequestParam("result") String result, HttpServletReques
     @GetMapping("/doctor/confirm")
     public String moveToDoctorConfirm(@RequestParam Long patientId, HttpServletRequest request, Model model){
         Patient patient = patientRepository.findById(patientId);
-        System.out.println("patient = " + patient);
         List<Score> scores = scoreService.scorePerWeek(patient);
-        System.out.println("scores = " + scores);
         if(scores.size() ==0){
             model.addAttribute("patientName",patient.getName());
             return "test";
@@ -143,5 +133,4 @@ public String saveScore(@RequestParam("result") String result, HttpServletReques
         application.setAttribute("scores",scores);
         return "Detailed_result";
     }
-
 }

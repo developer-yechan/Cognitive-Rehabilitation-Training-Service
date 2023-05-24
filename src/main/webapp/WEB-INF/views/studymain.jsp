@@ -32,10 +32,10 @@
     .left {
     background-color: #a9c5db;
     width: 30%;
-    height: 400px;
+    height: 300px;
     position: absolute;
     left:15%;
-    top: 45%;
+    top: 57%;
     color:#d7e0e7;
     border-radius: 10%;
     
@@ -49,10 +49,10 @@
 .right {
     background-color: #a9c5db;
     width: 30%;
-    height: 400px;
+    height: 300px;
     position: absolute;
     left: 55%;
-    top: 45%;
+    top: 57%;
     color:#d7e0e7;
     border-radius: 10%;
 
@@ -140,7 +140,7 @@
                 <h3 class ="p_name"data-aos="flip-down" data-aos-duration="1500" class="left">${pat_name}님 환영합니다.</h3>
               </div>
               <div class="col col-lg-2 pull-right">
-                <form action="/patient/logout" method="post">
+                <form action="/logout" method="post">
                   <input class ="logout"  data-aos="flip-down" data-aos-duration="1500"type="submit" value="로그아웃">
                 </form>
               </div>

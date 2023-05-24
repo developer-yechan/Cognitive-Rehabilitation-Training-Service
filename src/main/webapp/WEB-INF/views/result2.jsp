@@ -127,7 +127,7 @@ span{
             </div>
             <div class="radio col-md-8">
                 <span><input id = "check1" type = "radio" checked = "checked" name = "choose" onclick="dispList('0')"><label>영역별 점수</label></span>
-                <span><input id = "check2" type = "radio" name = "choose" onclick="dispList('1')"><label>요일별 점수</label></span>
+                <span><input id = "check2" type = "radio" name = "choose" onclick="dispList('1')"><label>날짜별 점수</label></span>
             </div>
             
             

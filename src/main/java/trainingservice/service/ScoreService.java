@@ -39,6 +39,7 @@ public class ScoreService {
             sumScore.setMemory(sumScore.getMemory()+score.getMemory());
             sumScore.setCalculation(sumScore.getCalculation()+score.getCalculation());
             sumScore.setConcentration(sumScore.getConcentration()+score.getConcentration());
+            sumScore.setProblemSolving(sumScore.getProblemSolving()+score.getProblemSolving());
         }
         System.out.println("sumScore = " + sumScore);
         scores.add(sumScore);

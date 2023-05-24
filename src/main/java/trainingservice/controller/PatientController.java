@@ -12,6 +12,7 @@ import trainingservice.dto.LoginDTO;
 import trainingservice.repository.DoctorRepository;
 import trainingservice.repository.PatientRepository;
 import trainingservice.session.SessionConst;
+import trainingservice.web.argumentresolver.Login;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,11 +29,6 @@ public class PatientController {
 
     private final DoctorRepository doctorRepository;
 
-//    @GetMapping("/login")
-//    public String home(){
-//        log.info("환자 로그인 페이지");
-//        return "loginHome2";
-//    }
 
     @PostMapping("/login")
     public String Login(@RequestParam("pat_id") Long patientId, Model model,
@@ -45,25 +41,9 @@ public class PatientController {
 
     }
 
-    @PostMapping("/logout")
-    public String Logout(HttpServletRequest request)
-    {
-        HttpSession session = request.getSession(false);
-        if(session != null){
-            session.invalidate();
-        }
-        return "redirect:/patient/home";
-    }
-
-
-
     @GetMapping("/home")
-    public String patientHome(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
-        if(session == null){
-            return "loginHome2";
-        }
-        Patient patient = (Patient) session.getAttribute(SessionConst.LOGIN_PATIENT);
+    public String patientHome(@Login Patient patient, Model model){
+
         if(patient == null){
             return "loginHome2";
         }

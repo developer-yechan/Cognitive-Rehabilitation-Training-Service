@@ -4,8 +4,6 @@ function faceRecognition(){
 //   alert(num)
    alert("얼굴 인식 진행")
    recogRequest(num)
-//   login(num)
-//     location.href = `http://localhost:8080/home/patient?pat_id=${num}`;
 }
 
 function recogRequest(num){
@@ -54,21 +52,6 @@ function post_to_url(path, params) {
     form.submit();
 }
 
-function login(num){
-    	   $.ajax({
-    	      url: `http://localhost:8080/patient/login?pat_id=${num}`,
-    	      data: {
-    	         data:num
-    	      },
-    	        method :"POST",
-//    	        success: function() {
-//    	          alert("환영합니다.")
-//    	        },
-    	       error:function(request,status,error){
-    	          alert("code = "+ request.status + " message = " + request.responseText + " error = " + error);
-    	      }
-    	   });
-    	}
 
     	function faceTrain(){
            var num = document.getElementById("num").value;

@@ -148,7 +148,7 @@ table p{
                 </tr>
             </table>
             <input class ="submit3" type="submit" value="회원가입">
-            <a href="loginHome.do"><input class ="return" type="button" value="뒤로가기"></a>
+            <a href="/login"><input class ="return" type="button" value="뒤로가기"></a>
         </form>
     </div>
 
