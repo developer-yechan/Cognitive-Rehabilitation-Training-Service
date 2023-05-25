@@ -23,7 +23,8 @@ public class Score {
         this.problemSolving = problemSolving;
     }
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonBackReference

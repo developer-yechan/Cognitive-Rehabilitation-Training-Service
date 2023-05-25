@@ -187,7 +187,7 @@ span{
           let barChart = new Chart(myChartOne, {
               type : 'bar', // pie, line, doughnut, polarArea
               data : {
-                  labels : ['지남력', ' 기억력', '계산력', '집중력', '문제해결','총합'],
+                  labels : ['지남력', ' 기억력', '계산력', '집중력', '문제해결'],
                   datasets :[{
                       label : '회원 영역별 점수',
                       data : [
@@ -196,7 +196,6 @@ span{
                           <%= scores.get(scores.size()-1).getCalculation()*10 %>,
                           <%= scores.get(scores.size()-1).getConcentration()*10 %>,
                           <%= scores.get(scores.size()-1).getProblemSolving()*10 %>,
-                          <%= scores.get(scores.size()-1).getTotalPoint()*10 %>
 
                       ]
                   }]

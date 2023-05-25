@@ -191,35 +191,23 @@ select * from patientpoint
 select * from patientpoint
 order by pp_date desc;
 
-insert into patientpoint(pp_date,totalpoint,zinam,giuk,gesan,zipjoon,moonje,pat_id)
-values('2021-04-07',10, 2, 2, 2, 2, 2, 116);
+insert into score(id,date,total_point,orientation,memory,calculation,concentration,problem_solving,patient_id)
+values(1,'2023-05-21',5, 1, 1, 1, 1, 1, 2);
+insert into score(id,date,total_point,orientation,memory,calculation,concentration,problem_solving,patient_id)
+values(2,'2023-05-22',3, 1, 1, 1, 0, 0, 2);
+insert into score(id,date,total_point,orientation,memory,calculation,concentration,problem_solving,patient_id)
+values(3,'2023-05-23',4, 1, 1, 1, 1, 0, 2);
+insert into score(id,date,total_point,orientation,memory,calculation,concentration,problem_solving,patient_id)
+values(4,'2023-05-24',3, 1, 1, 0, 0, 1, 2);
+insert into score(id,date,total_point,orientation,memory,calculation,concentration,problem_solving,patient_id)
+values(5,'2023-05-25',3, 1, 1, 0, 0, 1, 2);
 insert into patientpoint(pp_date,totalpoint,zinam,giuk,gesan,zipjoon,moonje,pat_id)
 values('2021-04-08',8, 2, 2, 0, 2, 2, 116);
 
-// 환자 점수 테이블에 점수 넣기
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),80, 77, 66, 77, 88, 3)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),65, 33, 44, 55, 60, 4)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),46, 71, 55, 33, 22, 5)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),46, 71, 55, 33, 22, 5)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values('2021-03-29',90, 71, 55, 33, 22, 3)
-
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values('2021-03-29',90, 71, 55, 33, 22, 15)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),90, 66, 100, 100, 100, 16)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),100, 66, 70, 60, 50, 17)
-insert into patientpoint(pp_date,pp_totalpoint,pointA,pointB,pointC,pointF,pat_id)
-values(NOW(),66, 66, 100, 100, 100, 18)
 
 DELETE from patients where pat_id='15'
 
-ALTER TABLE patientpoint ADD CONSTRAINT pat_id_fk FOREIGN KEY (pat_id) 
+ALTER TABLE patientpoint ADD CONSTRAINT pat_id_fk FOREIGN KEY (pat_id)
 REFERENCES patients(pat_id)
 
 

@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/trainingservice
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/trainingservice?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: yechan
+    password: '6625'
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -11,6 +11,7 @@ spring:
     hibernate:
       show_sql: true
       format_sql: true
+      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
 
 logging.level:
   org.hibernate.SQL: debug
