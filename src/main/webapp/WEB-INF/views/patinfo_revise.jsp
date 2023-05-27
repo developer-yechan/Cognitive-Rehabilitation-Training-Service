@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -94,7 +95,10 @@
 .table1 tr{
     margin-top : 5px;
 }
-    
+.errorMessage{
+    display : block;
+    color : red;
+}
 
     </style>
 
@@ -104,7 +108,10 @@
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원 수정</p>
-        <form action="/patient/update" method="post">
+        <form:form
+        modelAttribute="patient"
+        action="/patient/update"
+        method="post">
             <table class="table1">
                 <tr>
                     <td colspan="2">
@@ -114,6 +121,7 @@
                 <tr>
                     <td colspan="2">
                         <input class="underline0" type="text" name="name" id="name" value="${patient.name}"/>
+                        <form:errors class="errorMessage" path="name" />
                     </td>
                 </tr>
 
@@ -129,9 +137,18 @@
                 <tr>
                     <td>
                         <input class="underline0" type="number" name="age" id="age" value="${patient.age}" />
+                        <form:errors class="errorMessage" path="age" />
                     </td>
-                    <td> 
-                        <input class="underline0" type="text" name="sex" id="sex" value="${patient.sex}" />
+                    <td>
+                    <c:if test="${patient.sex eq '남'}">
+                        <input id ="sex" type="radio" name="sex" checked="checked" value="남"/>남성
+                        <input id ="sex" type="radio" name="sex" value="여"/>여성
+                    </c:if>
+                     <c:if test="${patient.sex eq '여'}">
+                         <input id ="sex" type="radio" name="sex" value="남"/>남성
+                         <input id ="sex" type="radio" name="sex" checked="checked" value="여"/>여성
+                     </c:if>
+                         <form:errors class="errorMessage" path="sex" />
                     </td>
                 </tr>
                 <tr>
@@ -153,6 +170,7 @@
                 <tr>
                     <td colspan="2"> 
                         <input class="underline0" type="text" name="phoneNumber" value="${patient.phoneNumber}"/>
+                        <form:errors class="errorMessage" path="phoneNumber" />
                     </td>
                 </tr>
                 <tr>
@@ -163,6 +181,7 @@
                 <tr>
                     <td colspan="2">
                         <input class="underline0" type="text" name="address" value="${patient.address}"/>
+                        <form:errors class="errorMessage" path="address" />
                     </td>
                 </tr>
                 <tr>
@@ -173,7 +192,7 @@
             </table>
             <input class ="submit3" type="submit" value="수정하기">
             <a href="/doctor/home"><input class ="return" type="button" value="뒤로가기"></a>
-        </form>
+        </form:form>
     </div>
 
     <script src = "../../resources/js/jquery-3.6.0.min.js"></script>

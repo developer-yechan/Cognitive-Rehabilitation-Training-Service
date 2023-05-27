@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
      <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+     <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
      <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -191,6 +193,11 @@
     margin-left: 13%;
     font-size:1.5vw;
 }
+.errorMessage{
+    width : 400%;
+    display : block;
+    color : red;
+}
 
     </style>
 
@@ -265,19 +272,31 @@
 
         <div style="display: none;" class="login_page2 fade-in-box" >
             <div class = "login">
-                <form action="/doctor/login" method="post">
+                <div>
+                <spring:hasBindErrors name="loginDto">
+                    <c:if test="${errors.hasGlobalErrors()}">
+                        <strong class="errorMessage">${errors.getGlobalError().defaultMessage}</strong>
+                    </c:if>
+                </spring:hasBindErrors>
+                </div>
+                <form:form
+                 modelAttribute="loginDto"
+                 action="/doctor/login"
+                 method="post">
                     <table style="width:70%">
                         <tr>
                             <td colspan="2">
                                 <div class="col-sm-3">
-                                <input type="text" class="doc form-control" id="specificSizeInputName"placeholder="작업치료사 이메일"  name="email">
+                                <form:input type="text" class="doc form-control" id="specificSizeInputName" placeholder="작업치료사 이메일" name="email" path="email"/>
+                                <form:errors class="errorMessage" path="email" />
                             </div>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
                                 <div class="col-sm-3" >
-                                <input type="password" class="doc form-control" id="specificSizeInputName"placeholder="비밀번호" name="password" >
+                                <form:input type="password" class="doc form-control" id="specificSizeInputName" placeholder="비밀번호" name="password" path="password" />
+                                <form:errors class="errorMessage" path="password" />
                                 </div>
                             </td>
                         </tr>
@@ -290,12 +309,7 @@
                             </td>
                         </tr>
                     </table>
-                    
-
-                    
-
-                    
-                </form>
+                </form:form>
         </div>
         </div>
 

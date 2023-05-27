@@ -11,6 +11,8 @@ import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @Getter @Setter
 public class Patient {
 
-    protected Patient() {
+    public Patient() {
     }
 
     @Id
@@ -34,14 +36,19 @@ public class Patient {
     @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL)
     private List<Score> score = new ArrayList<>();
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String sex;
 
+    @NotNull
     private int age;
 
+    @NotEmpty
     private String phoneNumber;
 
+    @NotEmpty
     private String address;
 
 //    public void setDoctor(Doctor doctor) {

@@ -1,4 +1,4 @@
-package trainingservice.session;
+package trainingservice.web.session;
 
 import org.springframework.stereotype.Component;
 

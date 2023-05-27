@@ -198,7 +198,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-           <a href="/doctor/patientRegister?doctorId=${doctorEmail}" class="nav-link active" aria-current="page" href="#">회원등록</a>
+           <a href="/patient/register?doctorId=${doctorEmail}" class="nav-link active" aria-current="page" href="#">회원등록</a>
           </li>
           <li class="nav-item">
           <form action="/logout" method="post">

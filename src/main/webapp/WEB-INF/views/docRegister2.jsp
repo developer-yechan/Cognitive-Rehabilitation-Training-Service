@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>     
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,8 +92,10 @@ table p{
    background-color: #eef0ed;
     color :grey;
 }
-    
-
+.errorMessage{
+    display : block;
+    color : red;
+}
     </style>
     
 </head>
@@ -100,7 +103,10 @@ table p{
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원가입</p>
-        <form action="/doctor/signup" method="post">
+        <form:form
+         modelAttribute="doctor"
+         action="/doctor/signup"
+         method="post">
             <table>
                 <tr>
                     <td>
@@ -112,10 +118,12 @@ table p{
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="email" />
+                        <form:input class="underline0" type="text" name="email" path="email" />
+                        <form:errors class="errorMessage" path="email" />
                     </td>
                     <td>
-                        <input class="underline0" type="password" name="password" />
+                        <form:input class="underline0" type="password" name="password" path="password" />
+                        <form:errors class="errorMessage" path="password" />
                     </td>
                 </tr>
                 <tr>
@@ -128,10 +136,12 @@ table p{
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="name" />
+                        <form:input class="underline0" type="text" name="name" path="name" />
+                        <form:errors class="errorMessage" path="name" />
                     </td>
                     <td>
-                        <input class="underline0" type="text" name="phoneNumber" />
+                        <form:input class="underline0" type="text" name="phoneNumber" path="phoneNumber" />
+                        <form:errors class="errorMessage" path="phoneNumber" />
                     </td>
                 </tr>
 
@@ -143,13 +153,14 @@ table p{
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="organization" />
+                        <form:input class="underline0" type="text" name="organization" path="organization" />
+                        <form:errors class="errorMessage" path="organization" />
                     </td>
                 </tr>
             </table>
             <input class ="submit3" type="submit" value="회원가입">
             <a href="/login"><input class ="return" type="button" value="뒤로가기"></a>
-        </form>
+        </form:form>
     </div>
 
     <script src = "jquery-3.6.0.min.js"></script>

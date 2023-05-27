@@ -33,7 +33,6 @@ public class ScoreService {
         }
         Score sumScore = new Score(0,0,0,0,0,0);
         for (Score score : scores) {
-            System.out.println("score = " + score);
             sumScore.setTotalPoint(sumScore.getTotalPoint()+score.getTotalPoint());
             sumScore.setOrientation(sumScore.getOrientation()+score.getOrientation());
             sumScore.setMemory(sumScore.getMemory()+score.getMemory());
@@ -41,7 +40,6 @@ public class ScoreService {
             sumScore.setConcentration(sumScore.getConcentration()+score.getConcentration());
             sumScore.setProblemSolving(sumScore.getProblemSolving()+score.getProblemSolving());
         }
-        System.out.println("sumScore = " + sumScore);
         scores.add(sumScore);
         return scores;
     }
@@ -61,7 +59,6 @@ public class ScoreService {
         for (int i = 0; i < solvedProblems.size(); i++) {
             if (solvedProblems.get(i).getAnswerLabel().equals(problems.get(i).getAnswerLabel())) {
                 totalPoint++;
-                System.out.println(solvedProblems.get(i).getCategory());
                 //어느 영역 문제에서 정답인지 분기해보자
                 if (solvedProblems.get(i).getCategory().equals("문제해결")) {
 

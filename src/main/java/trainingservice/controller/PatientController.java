@@ -8,10 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
-import trainingservice.dto.LoginDTO;
 import trainingservice.repository.DoctorRepository;
 import trainingservice.repository.PatientRepository;
-import trainingservice.session.SessionConst;
+import trainingservice.web.session.SessionConst;
 import trainingservice.web.argumentresolver.Login;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +28,7 @@ public class PatientController {
 
     private final DoctorRepository doctorRepository;
 
-
+    //환자 로그인 요청
     @PostMapping("/login")
     public String Login(@RequestParam("pat_id") Long patientId, Model model,
                         HttpServletRequest request)
@@ -40,7 +39,8 @@ public class PatientController {
         return "redirect:/patient/home";
 
     }
-
+    
+    //환자 메인 페이지 요청
     @GetMapping("/home")
     public String patientHome(@Login Patient patient, Model model){
 
@@ -52,11 +52,21 @@ public class PatientController {
         return "studymain";
     }
 
+    // 환자 회원 등록 페이지 렌더링 요청
+    @GetMapping("/register")
+    public String moveToRegister(Model model) {
+        Patient patient = new Patient();
+        model.addAttribute(patient);
+        return "patRegister";
+    }
+
+    // 환자 리소스 저장 요청
     @PostMapping("/register")
     public String patientRegister(@Valid @ModelAttribute Patient patient, BindingResult bindingResult,
                                   @RequestParam("doctorId") String doctorEmail, Model model){
         if(bindingResult.hasErrors()){
-            return "redirect:/doctor/patientRegister?doctorId=" + doctorEmail;
+            model.addAttribute("doctorId",doctorEmail);
+            return "patRegister";
         }
         List<Doctor> doctor = doctorRepository.findByEmail(doctorEmail);
         patient.setDoctor(doctor.get(0));
@@ -64,17 +74,19 @@ public class PatientController {
 
         return "redirect:/doctor/home";
     }
-
+    // 환자 정보 수정 페이지 렌더링 요청
     @GetMapping("/update")
     public String patientUpdatePage(@RequestParam Long patientId,Model model){
         Patient patient = patientRepository.findById(patientId);
         model.addAttribute("patient",patient);
-        System.out.println("patient = " + patient);
         return "patinfo_revise";
     }
 
+    // 환자 리소스 수정 요청
     @PostMapping("/update")
-    public String patientUpdate(@ModelAttribute Patient patient, BindingResult bindingResult){
+    public String patientUpdate(@Valid @ModelAttribute Patient patient, BindingResult bindingResult,Model model){
+        patient.setDoctor(patientRepository.findById(patient.getId()).getDoctor());
+        model.addAttribute("patient",patient);
         if(bindingResult.hasErrors()){
             return "patinfo_revise";
         }
@@ -83,6 +95,7 @@ public class PatientController {
         return "redirect:/doctor/home";
     }
 
+    // 환자 리소스 삭제 요청
     @DeleteMapping("/delete")
     public String patientDelete(@RequestParam Long patientId){
         int deletedRows = patientRepository.delete(patientId);

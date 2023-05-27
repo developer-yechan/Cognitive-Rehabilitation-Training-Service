@@ -8,7 +8,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
-import trainingservice.session.SessionConst;
+import trainingservice.web.session.SessionConst;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

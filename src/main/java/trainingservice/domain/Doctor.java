@@ -21,15 +21,18 @@ public class Doctor {
         this.email = email;
         this.password = password;
     }
+    public Doctor() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty
     private String name;
-
+    @NotEmpty
     private String phoneNumber;
-
+    @NotEmpty
     private String organization;
 
     @Column(unique = true)
@@ -43,6 +46,4 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor")
     private List<Patient> patients = new ArrayList<>();
 
-    protected Doctor() {
-    }
 }

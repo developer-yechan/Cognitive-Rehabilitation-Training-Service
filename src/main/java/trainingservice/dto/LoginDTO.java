@@ -11,4 +11,16 @@ public class LoginDTO {
     private String email;
     @NotEmpty
     private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginDTO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

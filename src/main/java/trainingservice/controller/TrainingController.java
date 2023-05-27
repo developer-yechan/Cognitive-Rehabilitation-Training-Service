@@ -1,5 +1,4 @@
 package trainingservice.controller;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
 import trainingservice.domain.Problem;
 import trainingservice.domain.Score;
@@ -17,12 +15,10 @@ import trainingservice.repository.PatientRepository;
 import trainingservice.repository.ProblemRepository;
 import trainingservice.repository.ScoreRepository;
 import trainingservice.service.ScoreService;
-import trainingservice.session.SessionConst;
 import trainingservice.web.argumentresolver.Login;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +35,7 @@ public class TrainingController {
     private final ScoreService scoreService;
     private final ServletContext application;
 
+    // 환자 훈련 첫 페이지 렌더링 요청
     @GetMapping
     public String moveToTrain(@Login Patient patient, Model model) {
         List<Score> todayResult = scoreRepository.findTodayResultByPatient(patient);
@@ -52,7 +49,8 @@ public class TrainingController {
         model.addAttribute("problem", problems.get(0));
         return "study";
     }
-
+    
+    // 환자 훈련 다음 페이지 렌더링 요청
     @GetMapping("/nextProblem")
     public String moveToNextProblem(@RequestParam("result") String result, Model model) {
         List<SolvedProblem> solvedProblems = (List<SolvedProblem>) application.getAttribute("solvedProblems");
@@ -81,22 +79,23 @@ public class TrainingController {
         model.addAttribute("problem", nextProblem);
         return "study";
     }
-
-@PostMapping("/score")
-public String saveScore(@RequestParam("result") String result, @Login Patient patient,Model model){
-    List<SolvedProblem> solvedProblems = (List<SolvedProblem>) application.getAttribute("solvedProblems");
-    List<Problem> problems = (List<Problem>) application.getAttribute("problems");
-    SolvedProblem solvedProblem = new SolvedProblem();
-    Problem problem = problems.get(solvedProblems.size());
-    solvedProblem.setNumber(problem.getNumber());
-    solvedProblem.setCategory(problem.getCategory());
-    solvedProblem.setRound(problem.getRound());
-    solvedProblem.setAnswerLabel(result);
-    solvedProblems.add(solvedProblem);
-    Score score = scoreService.saveScore(solvedProblems, problems, patient);
-    return "redirect:/train/score";
-}
-
+    
+    // 환자 훈련 score 리소스 저장 요청
+    @PostMapping("/score")
+    public String saveScore(@RequestParam("result") String result, @Login Patient patient,Model model){
+        List<SolvedProblem> solvedProblems = (List<SolvedProblem>) application.getAttribute("solvedProblems");
+        List<Problem> problems = (List<Problem>) application.getAttribute("problems");
+        SolvedProblem solvedProblem = new SolvedProblem();
+        Problem problem = problems.get(solvedProblems.size());
+        solvedProblem.setNumber(problem.getNumber());
+        solvedProblem.setCategory(problem.getCategory());
+        solvedProblem.setRound(problem.getRound());
+        solvedProblem.setAnswerLabel(result);
+        solvedProblems.add(solvedProblem);
+        Score score = scoreService.saveScore(solvedProblems, problems, patient);
+        return "redirect:/train/score";
+    }
+    // 환자 훈련 결과 페이지 렌더링 요청
     @GetMapping("/score")
     public String moveToScore(@Login Patient patient,Model model){
         List<Score> todayScore = scoreRepository.findTodayResultByPatient(patient);
@@ -108,6 +107,7 @@ public String saveScore(@RequestParam("result") String result, @Login Patient pa
         return "score";
     }
 
+    // 환자용 훈련 통계 페이지 렌더링 요청
     @GetMapping("/score/statistics")
     public String moveToStatistics(@Login Patient patient, Model model) {
             List<Score> scores = scoreService.scorePerWeek(patient);
@@ -120,6 +120,8 @@ public String saveScore(@RequestParam("result") String result, @Login Patient pa
 
             return "result2";
         }
+        
+    // 작업치료사용 훈련 통계 페이지 렌더링 요청
     @GetMapping("/doctor/confirm")
     public String moveToDoctorConfirm(@RequestParam Long patientId, HttpServletRequest request, Model model){
         Patient patient = patientRepository.findById(patientId);

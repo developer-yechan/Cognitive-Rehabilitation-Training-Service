@@ -151,7 +151,6 @@ span{
 }
     </style>
    <% List<Score>scores =(List<Score>) application.getAttribute("scores"); %>
-    <% System.out.println("jsp scores = " + scores); %>
 </head>
 <body>
     <div id="result_page">
@@ -160,10 +159,6 @@ span{
         </header>
         <div id="check">
             <div class ="col-md-12">
-            <!-- 여기 아이디 꺼내는게 없어서 일단 에러인데 이름 어디에 저장되어있나요? 이름꺼네는건 따로 만들어야 할것 같아요 그리고 검사를 아직 안해서 점수가 없는 아이디는 어떻게 처리해야 할까요?
-            	이거 반복문 돌면서 꺼내자나요 아마도 리스트 안에 있는거 같은데 그럼 리스트안에 점수가 0점이라면 출력이 안되게 조건문 걸면되요
- 	잠깐만요           
-             -->
                 <p id="member_name3">${patientName}님 결과입니다.</p>
             </div>
             <div class="radio col-md-8">

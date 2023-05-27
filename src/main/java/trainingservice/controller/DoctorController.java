@@ -18,13 +18,11 @@ import trainingservice.repository.DoctorRepository;
 import trainingservice.repository.PatientRepository;
 import trainingservice.repository.ScoreRepository;
 import trainingservice.service.LoginService;
-import trainingservice.session.SessionConst;
+import trainingservice.web.session.SessionConst;
 import trainingservice.web.argumentresolver.Login;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -41,17 +39,25 @@ public class DoctorController {
 
     private final ScoreRepository scoreRepository;
 
+    // 회원가입 페이지 렌더링 요청
     @GetMapping("/signup")
-    public String MoveToSignUp(){
+    public String MoveToSignUp(Model model){
+        Doctor doctor = new Doctor();
+        model.addAttribute("doctor",doctor);
         return "docRegister2";
     }
 
 
+    //작업치료사 메인페이지 렌더링 요청
     @GetMapping("/home")
-    public String LoginHome(@ModelAttribute PatientSearch patientSearch, @Login Doctor doctor, Model model) throws JsonProcessingException {
+    public String LoginHome(@ModelAttribute PatientSearch patientSearch, BindingResult bindingResult,
+                            @Login Doctor doctor, Model model) throws JsonProcessingException {
 
+        if(bindingResult.hasErrors()){
+            return "home";
+        }
         if(doctor == null){
-            return "loginHome";
+            return "loginHome2";
         }
 
         List<Patient> patients = patientRepository.findByDoctor(doctor,patientSearch);
@@ -71,11 +77,10 @@ public class DoctorController {
         return "home";
     }
 
+    // 작업치료사 회원가입 리소스 저장 요청
     @PostMapping("/signup")
     public String signUp(@Valid @ModelAttribute Doctor doctor, BindingResult bindingResult){
-        log.info("회원가입 컨트롤러");
         if(bindingResult.hasErrors()){
-            log.info("바인딩 에러");
             return "docRegister2";
         }
 
@@ -87,16 +92,19 @@ public class DoctorController {
 
         return "redirect:/login";
     }
-
+    // 작업치료사 로그인 요청
     @PostMapping("/login")
     public String Login(@Valid @ModelAttribute("loginDto") LoginDTO loginDto, BindingResult bindingResult,
                         Model model, HttpServletRequest request){
-
         if(bindingResult.hasErrors()){
             return "loginHome2";
         }
-
         Doctor doctor = loginService.login(loginDto.getEmail(), loginDto.getPassword());
+
+        if(doctor == null){
+            bindingResult.reject("loginFail","아이디 또는 비밀번호가 맞지 않습니다.");
+            return "loginHome2";
+        }
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_DOCTOR,doctor);
 
@@ -104,11 +112,6 @@ public class DoctorController {
 
     }
 
-    @GetMapping("/patientRegister")
-    public String moveToRegister() {
-
-        return"patRegister";
-    }
 
 
 }

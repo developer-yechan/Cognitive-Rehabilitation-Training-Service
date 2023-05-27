@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <% request.setCharacterEncoding("utf-8"); %>
 <% response.setCharacterEncoding("utf-8"); %>
@@ -94,15 +95,20 @@
 #radio_sex{
     width: 10%;
 }
-    
-
+.errorMessage{
+    display : block;
+    color : red;
+}
     </style>
 
 </head>
 <body>
     <div class="main"data-aos="fade-up" data-aos-duration="500">
         <p id="d_join" data-aos="flip-up" data-aos-duration="1500">회원 등록</p>
-        <form action="/patient/register?doctorId=${param.doctorId}" method="post">
+        <form:form
+        modelAttribute="patient"
+        action="/patient/register?doctorId=${param.doctorId}"
+        method="post">
             <table class="table1">
                 <tr>
                     
@@ -112,7 +118,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="text" name="name" />
+                        <form:input class="underline0" type="text" name="name" path="name" />
+                        <form:errors class="errorMessage" path="name" />
                     </td>
                     
                 </tr>
@@ -124,7 +131,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="underline0" type="number" name="age" />
+                        <form:input class="underline0" type="number" name="age" path="age"/>
+                        <form:errors class="errorMessage" path="age" />
                     </td>
                  </tr>
                 <tr>
@@ -135,8 +143,9 @@
                 
                  <tr>
                     <td>
-                        <input id ="radio_sex" type="radio" name="sex"checked="checked" value="남"/>남성
-                        <input id ="radio_sex"type="radio" name="sex"value="여"/>여성
+                        <input id ="radio_sex" type="radio" name="sex" checked="checked" value="남"/>남성
+                        <input id ="radio_sex" type="radio" name="sex" value="여"/>여성
+                        <form:errors class="errorMessage" path="sex" />
                     </td>
                 </tr>
                 <tr>
@@ -151,7 +160,8 @@
                 </tr>
                 <tr>
                     <td colspan="2"> 
-                        <input class="underline0" type="text" name="phoneNumber" />
+                        <form:input class="underline0" type="text" name="phoneNumber" path="phoneNumber" />
+                        <form:errors class="errorMessage" path="phoneNumber" />
                     </td>
                 </tr>
                 <tr>
@@ -161,7 +171,9 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input class="underline0" type="text" name="address" />
+                        <form:input class="underline0" type="text" name="address" path="address" />
+                        <form:errors class="errorMessage" path="address" />
+
                     </td>
                 </tr>
                 <tr>
@@ -177,8 +189,7 @@
             </table>
             <input class ="submit3" type="submit" value="등록">
             <a href="/doctor/home"><input class ="return" type="button" value="뒤로가기"></a>
-            
-        </form>
+        </form:form>
     </div>
 
     <script src = "jquery-3.6.0.min.js"></script>

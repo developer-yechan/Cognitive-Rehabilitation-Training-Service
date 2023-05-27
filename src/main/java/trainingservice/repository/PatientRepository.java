@@ -34,7 +34,6 @@ public class PatientRepository {
         if (StringUtils.hasText(patientSearch.getSex())) {
             jpql += " and p.sex = :sex";
         }
-        System.out.println("jpql = " + jpql);
 
         TypedQuery<Patient> query = em.createQuery(jpql, Patient.class);
         query.setParameter("doctor",doctor);
@@ -63,7 +62,6 @@ public class PatientRepository {
     @Transactional
     public void update(Patient patient){
         Patient findPatient = em.find(Patient.class, patient.getId());
-        System.out.println("findPatient = " + findPatient);
 
         if(findPatient == null){
             throw new IllegalStateException("존재하지 않는 회원입니다.");
