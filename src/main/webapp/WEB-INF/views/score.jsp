@@ -64,7 +64,7 @@
 }
 #member_name3{
     font-size: 1.5vw;
-    margin-left:45%;
+    margin-left:40%;
     margin-top:3%
 }
 table{
@@ -159,7 +159,7 @@ span{
         </header>
         <div id="check">
             <div class ="col-md-12">
-                <p id="member_name3">${score.patient.name}님 결과입니다.</p>
+                <p id="member_name3">${score.patient.name}님 오늘 훈련 결과입니다.</p>
             </div>
         </div>
             <div id="chart">

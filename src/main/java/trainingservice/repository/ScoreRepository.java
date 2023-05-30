@@ -19,9 +19,9 @@ public class ScoreRepository {
     private final EntityManager em;
 
     public List<Score> findByPatient(Patient patient){
-        return em.createQuery("select s From Score s where s.patient=:patient order by date desc")
+        return em.createQuery("select s From Score s where s.patient=:patient and s.date >= :referenceDate order by s.date desc")
                 .setParameter("patient", patient)
-                .setMaxResults(7)
+                .setParameter("referenceDate",LocalDateTime.now().minusDays(7))
                 .getResultList();
     }
 

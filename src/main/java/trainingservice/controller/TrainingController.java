@@ -40,7 +40,7 @@ public class TrainingController {
     public String moveToTrain(@Login Patient patient, Model model) {
         List<Score> todayResult = scoreRepository.findTodayResultByPatient(patient);
         if (todayResult.size() > 0){
-            return "redirect:/patient/home";
+            return "redirect:/train/score";
         }
         List<Problem> problems = problemRepository.findAll();
         List<SolvedProblem> solvedProblems = new ArrayList<>();
