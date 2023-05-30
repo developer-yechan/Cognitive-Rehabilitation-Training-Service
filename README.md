@@ -15,12 +15,13 @@
 
 ## 소개
 
-
-![patientGif](https://github.com/developer-yechan/Cognitive-Rehabilitation-Training-Service/assets/99064214/45352cf4-90fa-42c0-9197-6771359de456)
+  <div align="center">
+  <img src="./src/main/webapp/resources/images/patientGif.gif" width="90%">
+  </div>
 
 - 본 프로젝트는 21년 3~4월에 진행했던 CNN 문자 인식 기반 인지 재활 훈련 서비스 구현 팀 프로젝트를 
   Spring Boot 및 JPA를 활용하여 리팩토링한 개인 프로젝트입니다.
-  
+
 ## 데이터베이스 모델링
 
 ### 클래스 다이어그램
