@@ -14,6 +14,7 @@ import java.util.List;
 public class LoginService {
     private final DoctorRepository doctorRepository;
 
+    // 로그인 비즈니스 로직(등록된 사용자 인지?, 입력한 비밀번호가 db에 저장된 비밀번호와 일치하는 지 확인)
     public Doctor login(String email, String password){
         List<Doctor> doctor = doctorRepository.findByEmail(email);
 

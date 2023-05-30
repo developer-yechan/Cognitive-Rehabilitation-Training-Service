@@ -130,12 +130,12 @@ body {
 #canvas {
 	background-color: white;
 	border: 4px dashed black;
-	margin-left: 35%;
+	margin-left: 30%;
 	margin-top: 80px;
 }
 
 .options {
-	margin-left: 39%;
+	margin-left: 35%;
 	margin-top: 10px;
 }
 

@@ -7,8 +7,6 @@ import trainingservice.domain.Problem;
 import trainingservice.domain.Score;
 import trainingservice.dto.SolvedProblem;
 import trainingservice.repository.ScoreRepository;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,6 +17,7 @@ public class ScoreService {
 
     private final ScoreRepository scoreRepository;
 
+    // 계산된 환자 훈련 score를 db에 저장하는 로직
     public Score saveScore(List<SolvedProblem> solvedProblems,
                            List<Problem> problems, Patient patient) {
         Score score = calculateScore(solvedProblems, problems, patient);
@@ -26,6 +25,7 @@ public class ScoreService {
         return score;
     }
 
+    // 환자가 일주일 간 훈련한 문제의 영역별 정답 개수 및 총 정답 개수 계산하는 로직
     public List<Score> scorePerWeek(Patient patient){
         List<Score> scores = scoreRepository.findByPatient(patient);
         if(scores.size() == 0){
@@ -44,6 +44,7 @@ public class ScoreService {
         return scores;
     }
 
+    // 환자가 훈련을 마쳤을 때 해당 훈련에 대해 영역별 정답 개수 및 총 정답 개수를 계산하는 로직
     public Score calculateScore(List<SolvedProblem> solvedProblems,
                                 List<Problem> problems, Patient patient) {
         int totalPoint = 0;
