@@ -1,11 +1,17 @@
 package trainingservice.repository;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.SimpleTemplate;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import trainingservice.domain.Doctor;
 import trainingservice.domain.Patient;
+import trainingservice.domain.QPatient;
 import trainingservice.dto.PatientSearch;
 
 import javax.persistence.EntityManager;
@@ -13,40 +19,54 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+import static trainingservice.domain.QPatient.*;
+
 @Repository
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class PatientRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
+
+    public PatientRepository(EntityManager em){
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
+    }
 
     public List<Patient> findByDoctor(Doctor doctor, PatientSearch patientSearch){
-        String jpql = "select distinct p from Patient p left join fetch p.score where p.doctor=:doctor";
-        //주문 상태 검색
-        if (patientSearch.getId() != null) {
-            jpql += " and p.id = :id";
-        }
-        //회원 이름 검색
-        if (StringUtils.hasText(patientSearch.getName())) {
-            jpql += " and p.name like :name";
-        }
 
-        if (StringUtils.hasText(patientSearch.getSex())) {
-            jpql += " and p.sex = :sex";
-        }
+        Long id = patientSearch.getId();
+        String name = patientSearch.getName();
+        String sex = patientSearch.getSex();
 
-        TypedQuery<Patient> query = em.createQuery(jpql, Patient.class);
-        query.setParameter("doctor",doctor);
-        if (patientSearch.getId() != null) {
-            query = query.setParameter("id", patientSearch.getId());
+        List<Patient> result = query
+                                .selectFrom(patient).distinct()
+                                .leftJoin(patient.score).fetchJoin()
+                                .where(patient.doctor.eq(doctor), equalId(id), likeName(name), equalSex(sex))
+                                .fetch();
+
+        return result;
+    }
+
+    private BooleanExpression equalId(Long id) {
+        if(id != null){
+            return patient.id.eq(id);
         }
-        if (StringUtils.hasText(patientSearch.getName())) {
-            query = query.setParameter("name", patientSearch.getName());
+        return null;
+    }
+
+    private BooleanExpression equalSex(String sex) {
+        if(StringUtils.hasText(sex)){
+            return patient.sex.eq(sex);
         }
-        if (StringUtils.hasText(patientSearch.getSex())) {
-            query = query.setParameter("sex", patientSearch.getSex());
+        return null;
+    }
+
+    private BooleanExpression likeName(String name) {
+        if(StringUtils.hasText(name)){
+            return patient.name.like("%" + name + "%");
         }
-        return query.getResultList();
+        return null;
     }
 
     public Patient findById(Long patientId){
